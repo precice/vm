@@ -14,7 +14,7 @@ echo "source /etc/profile.d/openfoam-selector.sh" >> /home/vagrant/.bashrc
 
 # Get the OpenFOAM-preCICE adapter
 if [ ! -d "openfoam-adapter/" ]; then
-    sudo -u ${USER} git clone --branch master https://github.com/precice/openfoam-adapter.git
+    sudo -u ${USER} git clone --depth=1 --branch master https://github.com/precice/openfoam-adapter.git
 fi
 cd openfoam-adapter
 sudo -u ${USER} -s bash -c "source /usr/lib/openfoam/openfoam2006/etc/bashrc && ./Allwmake"

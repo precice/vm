@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |vb|
     # Name of the machine
-    vb.name = "preCICE-Ubuntu-20.04"
+    vb.name = "preCICE-VM"
     # Display the VirtualBox GUI when booting the machine
     vb.gui = true
     # Number of cores

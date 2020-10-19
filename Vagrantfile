@@ -33,15 +33,15 @@ Vagrant.configure("2") do |config|
   end
 
   # Install a desktop environment and basic tools
-  config.vm.provision "shell", path: "install-basics.sh"
+  config.vm.provision "shell", path: "provisioning/install-basics.sh"
   
   # Install common development tools
-  config.vm.provision "shell", path: "install-devel.sh"
+  config.vm.provision "shell", path: "provisioning/install-devel.sh"
   
   # Install preCICE
-  config.vm.provision "shell", path: "install-precice.sh"
+  config.vm.provision "shell", path: "provisioning/install-precice.sh"
 
   # Install solvers, adapters, and related tools
-  config.vm.provision "shell", path: "install-openfoam.sh"
-  config.vm.provision "shell", path: "install-paraview.sh"
+  config.vm.provision "shell", path: "provisioning/install-openfoam.sh"
+  config.vm.provision "shell", path: "provisioning/install-paraview.sh"
 end

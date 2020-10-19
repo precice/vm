@@ -17,4 +17,5 @@ if [ ! -d "openfoam-adapter/" ]; then
     sudo -u ${USER} git clone --depth=1 --branch master https://github.com/precice/openfoam-adapter.git
 fi
 cd openfoam-adapter
-sudo -u ${USER} -s bash -c "source /usr/lib/openfoam/openfoam2006/etc/bashrc && ./Allwmake"
+git pull
+sudo -u ${USER} -s bash -l ./Allwmake

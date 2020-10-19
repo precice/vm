@@ -9,7 +9,6 @@ sudo apt-get install -y ./libprecice2_2.1.1_focal.deb
 rm ./libprecice2_2.1.1_focal.deb
 
 # Collect examples
-sudo -u ${USER} mkdir -p /home/vagrant/Desktop
 cd /home/vagrant/Desktop
     sudo -u ${USER} cp -r /usr/share/precice/examples/ .
     if [ ! -d "tutorials/" ]; then

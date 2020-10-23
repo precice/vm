@@ -40,4 +40,5 @@ Vagrant.configure("2") do |config|
 
   # Post-installation steps
   config.vm.provision "shell", path: "provisioning/post-install.sh"
+  config.vm.provision "file", source: "provisioning/install-vscode.sh", destination: "~/Desktop/install-vscode.sh"
 end

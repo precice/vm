@@ -18,6 +18,11 @@ Vagrant.configure("2") do |config|
     vb.cpus = 2
     # Customize the amount of memory on the VM:
     vb.memory = "2048"
+    # Video memory (the default may be too low for some applications)
+    vb.customize ["modifyvm", :id, "--vram", "64"]
+    # The default graphics controller is VboxSVGA. This seems to cause issues with auto-scaling.
+    # VMSVGA seems to work better.
+    vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]
   end
 
   # Install a desktop environment and basic tools

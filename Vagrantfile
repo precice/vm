@@ -41,4 +41,11 @@ Vagrant.configure("2") do |config|
   # Post-installation steps
   config.vm.provision "shell", path: "provisioning/post-install.sh"
   config.vm.provision "file", source: "provisioning/install-vscode.sh", destination: "~/Desktop/install-vscode.sh"
+
+  # Pre-packaging steps
+  # Add the default Vagrant insecure public key to the authorized keys
+  config.vm.provision "file", source: "provisioning/vagrant.pub", destination: "~/.ssh/vagrant.pub"
+  config.vm.provision "shell", inline: <<-SHELL
+    cat /home/vagrant/.ssh/vagrant.pub >> /home/vagrant/.ssh/authorized_keys
+  SHELL
 end

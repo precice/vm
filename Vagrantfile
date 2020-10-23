@@ -9,15 +9,6 @@ Vagrant.configure("2") do |config|
   # We can instead handle updates internally, without destroying the machine.
   config.vm.box_check_update = false
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # Disable the default folder sync
-  # config.vm.synced_folder ".", "/vagrant", disabled: true
-  # Sync a dedicated shared folder
-  config.vm.synced_folder "./shared", "/home/vagrant/Desktop/shared"
-
   config.vm.provider "virtualbox" do |vb|
     # Name of the machine
     vb.name = "preCICE-VM"
@@ -44,4 +35,7 @@ Vagrant.configure("2") do |config|
   # Install solvers, adapters, and related tools
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh"
   config.vm.provision "shell", path: "provisioning/install-paraview.sh"
+
+  # Post-installation steps
+  config.vm.provision "shell", path: "provisioning/post-install.sh"
 end

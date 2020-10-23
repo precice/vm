@@ -18,9 +18,6 @@ Vagrant.configure("2") do |config|
     vb.cpus = 2
     # Customize the amount of memory on the VM:
     vb.memory = "2048"
-    # Workaround to fix extremely long boot time
-    # See https://bugs.launchpad.net/cloud-images/+bug/1874453 (#36)
-    #vb.customize [ "modifyvm", :id, "--uartmode1", "file", File::NULL ]
   end
 
   # Install a desktop environment and basic tools

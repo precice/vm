@@ -37,11 +37,13 @@ A few things you may need:
 This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob/master/packer_templates/ubuntu/ubuntu-20.04-amd64.json) base box and installs:
 - Xubuntu-core (Xfce desktop environment) and related tools
 - VirtualBox guest additions
+- Terminator (a nice split-window terminal emulator, find it in `Applications > System`)
 - Git, CMake, ccmake
 - preCICE latest for the master branch
 - preCICE Python bindings
 - OpenFOAM v2012 and the OpenFOAM-preCICE adapter
 - deal.II 9.2 from the official backports and the deal.II-preCICE adapter (you still need to copy the compiled executables wherever you need them)
+- CalculiX 2.16 from source and the CalculiX-preCICE adapter
 - Paraview from the official binaries
 
 It then adds on the `/home/vagrant/Desktop`:
@@ -55,3 +57,9 @@ The adapter repositories remain in `/home/vagrant/`.
 ### This does not seem to work on my machine
 
 Even though most hardware supports virtualization, your CPU may not or you may need to enable it in your BIOS/UEFI settings.
+
+### Provisioning fails during an APT update / install
+
+The most common reason can be that one of the third-party APT repositories
+(such as the repository of OpenFOAM on SourceForge) do not respond.
+Usually running again (e.g. with `vagrant up --provision`) helps.

@@ -37,6 +37,7 @@ Vagrant.configure("2") do |config|
   # Install solvers, adapters, and related tools
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh"
   config.vm.provision "shell", path: "provisioning/install-dealii.sh"
+  config.vm.provision "shell", path: "provisioning/install-calculix.sh"
   config.vm.provision "shell", path: "provisioning/install-paraview.sh"
 
   # Post-installation steps

@@ -8,7 +8,7 @@ sudo apt-get install -y libarpack2-dev libspooles-dev libyaml-cpp-dev
 
 # Install CalculiX 
 cd /home/vagrant/
-wget http://www.dhondt.de/ccx_2.16.src.tar.bz2
+wget --quiet http://www.dhondt.de/ccx_2.16.src.tar.bz2
 tar xvjf ccx_2.16.src.tar.bz2 
 
 # Get the CalculiX-preCICE adapter

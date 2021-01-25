@@ -46,6 +46,7 @@ This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob
 - CalculiX 2.16 from source and the CalculiX-preCICE adapter
 - FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter
 - Nutils latest from PIP
+- SU2 6.0.0 and the SU2-preCICE adapter from source
 - Paraview from the official binaries
 
 It then adds on the `/home/vagrant/Desktop`:

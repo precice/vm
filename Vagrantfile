@@ -38,6 +38,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh"
   config.vm.provision "shell", path: "provisioning/install-dealii.sh"
   config.vm.provision "shell", path: "provisioning/install-calculix.sh"
+  config.vm.provision "shell", path: "provisioning/install-fenics.sh"
+  config.vm.provision "shell", path: "provisioning/install-nutils.sh"
   config.vm.provision "shell", path: "provisioning/install-paraview.sh"
 
   # Post-installation steps

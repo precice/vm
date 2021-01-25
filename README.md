@@ -44,6 +44,8 @@ This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob
 - OpenFOAM v2012 and the OpenFOAM-preCICE adapter
 - deal.II 9.2 from the official backports and the deal.II-preCICE adapter (you still need to copy the compiled executables wherever you need them)
 - CalculiX 2.16 from source and the CalculiX-preCICE adapter
+- FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter
+- Nutils latest from PIP
 - Paraview from the official binaries
 
 It then adds on the `/home/vagrant/Desktop`:

@@ -38,9 +38,9 @@ This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob
 - Xubuntu-core (Xfce desktop environment) and related tools
 - VirtualBox guest additions
 - Git, CMake, ccmake
-- preCICE v2.1.1 from the official binaries
+- preCICE latest for the master branch
 - preCICE Python bindings
-- OpenFOAM v2006 and the OpenFOAM-preCICE adapter
+- OpenFOAM v2012 and the OpenFOAM-preCICE adapter
 - Paraview from the official binaries
 
 It then adds on the `/home/vagrant/Desktop`:

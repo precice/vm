@@ -41,6 +41,7 @@ This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob
 - preCICE latest for the master branch
 - preCICE Python bindings
 - OpenFOAM v2012 and the OpenFOAM-preCICE adapter
+- deal.II 9.2 from the official backports and the deal.II-preCICE adapter (you still need to copy the compiled executables wherever you need them)
 - Paraview from the official binaries
 
 It then adds on the `/home/vagrant/Desktop`:

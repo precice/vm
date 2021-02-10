@@ -5,3 +5,6 @@ set -ex
 ln -sf /vagrant/ /home/vagrant/Desktop/
 mv /home/vagrant/Desktop/vagrant /home/vagrant/Desktop/shared
 chown vagrant:vagrant /home/vagrant/Desktop/shared
+
+# Cleanup the APT cache to save space
+apt-get clean

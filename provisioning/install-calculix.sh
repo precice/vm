@@ -7,7 +7,7 @@ USER="vagrant"
 sudo apt-get install -y libarpack2-dev libspooles-dev libyaml-cpp-dev
 
 # Install CalculiX 
-cd /home/vagrant/
+cd /home/${USER}/
 wget --quiet http://www.dhondt.de/ccx_2.16.src.tar.bz2
 tar xvjf ccx_2.16.src.tar.bz2 
 
@@ -20,4 +20,4 @@ git pull
 sudo -u ${USER} -s bash -c "make -j 2"
 
 # Add the CalculiX adapter to PATH
-echo "export PATH='/home/vagrant/calculix-adapter/bin:$PATH'" >> /home/vagrant/.bashrc
+echo "export PATH=\"/home/${USER}/calculix-adapter/bin:\${PATH}\"" >> /home/${USER}/.bashrc

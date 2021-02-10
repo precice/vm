@@ -18,7 +18,7 @@ if [ ! -d "precice/" ]; then
 fi
 
 # Collect examples
-cd /home/vagrant/Desktop
+cd /home/${USER}/Desktop
     sudo -u ${USER} cp -r /usr/share/precice/examples/ .
     if [ ! -d "tutorials/" ]; then
         sudo -u ${USER} git clone --branch master https://github.com/precice/tutorials.git
@@ -32,7 +32,7 @@ sudo -u ${USER} pip3 install --upgrade pip
 sudo -u ${USER} pip3 install --user pyprecice
 
 # Get the Python solverdummy into the examples
-cd /home/vagrant/Desktop
+cd /home/${USER}/Desktop
     if [ ! -d "python-bindings/" ]; then
         sudo -u ${USER} git clone --branch master https://github.com/precice/python-bindings.git
     fi

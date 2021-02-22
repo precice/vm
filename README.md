@@ -40,6 +40,7 @@ This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob
 - VirtualBox guest additions
 - Terminator (a nice split-window terminal emulator, find it in `Applications > System`)
 - Git, CMake, ccmake
+- Editors: nano, vim, gedit
 - preCICE latest for the master branch
 - preCICE Python bindings
 - OpenFOAM v2012 and the OpenFOAM-preCICE adapter

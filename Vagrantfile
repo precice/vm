@@ -9,15 +9,6 @@ Vagrant.configure("2") do |config|
   # We can instead handle updates internally, without destroying the machine.
   config.vm.box_check_update = false
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # Disable the default folder sync
-  # config.vm.synced_folder ".", "/vagrant", disabled: true
-  # Sync a dedicated shared folder
-  config.vm.synced_folder "./shared", "/home/vagrant/Desktop/shared"
-
   config.vm.provider "virtualbox" do |vb|
     # Name of the machine
     vb.name = "preCICE-VM"
@@ -27,9 +18,11 @@ Vagrant.configure("2") do |config|
     vb.cpus = 2
     # Customize the amount of memory on the VM:
     vb.memory = "2048"
-    # Workaround to fix extremely long boot time
-    # See https://bugs.launchpad.net/cloud-images/+bug/1874453 (#36)
-    #vb.customize [ "modifyvm", :id, "--uartmode1", "file", File::NULL ]
+    # Video memory (the default may be too low for some applications)
+    vb.customize ["modifyvm", :id, "--vram", "64"]
+    # The default graphics controller is VboxSVGA. This seems to cause issues with auto-scaling.
+    # VMSVGA seems to work better.
+    vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]
   end
 
   # Install a desktop environment and basic tools
@@ -43,5 +36,21 @@ Vagrant.configure("2") do |config|
 
   # Install solvers, adapters, and related tools
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh"
+  config.vm.provision "shell", path: "provisioning/install-dealii.sh"
+  config.vm.provision "shell", path: "provisioning/install-calculix.sh"
+  config.vm.provision "shell", path: "provisioning/install-fenics.sh"
+  config.vm.provision "shell", path: "provisioning/install-nutils.sh"
+  config.vm.provision "shell", path: "provisioning/install-su2.sh"
   config.vm.provision "shell", path: "provisioning/install-paraview.sh"
+
+  # Post-installation steps
+  config.vm.provision "shell", path: "provisioning/post-install.sh"
+  config.vm.provision "file", source: "provisioning/install-vscode.sh", destination: "~/Desktop/install-vscode.sh"
+
+  # Pre-packaging steps
+  # Add the default Vagrant insecure public key to the authorized keys
+  config.vm.provision "file", source: "provisioning/vagrant.pub", destination: "~/.ssh/vagrant.pub"
+  config.vm.provision "shell", inline: <<-SHELL
+    cat /home/vagrant/.ssh/vagrant.pub >> /home/vagrant/.ssh/authorized_keys
+  SHELL
 end

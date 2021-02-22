@@ -29,7 +29,7 @@ A few things you may need:
 - Turn off or destroy the machine: `vagrant halt`, `vagrant destroy`
 - Update the machine after you change the related scripts: `vagrant provision`
 - SSH into the machine: `vagrant ssh`
-- Package your already provisioned box (e.g. to reduce the starting time on another machine): `vagrant package --base "preCICE-Ubuntu-20.04" --output preCICE.box`
+- Package your already provisioned box (e.g. to reduce the starting time on another machine): `vagrant package --base "preCICE-VM" --output preCICE.box`
 - Change the number of cores and the allocated memory: edit `vb.cpus` and `vb.memory` in the `Vagrantfile`.
 - Share files between host and guest system: the guest system's `/vagrant/` directory reflects the directory of the `Vagrantfile`.
 

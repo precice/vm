@@ -58,4 +58,4 @@ Even though most hardware supports virtualization, your CPU may not or you may n
 
 ### There is no GUI
 
-In case you killed the session before provisioning finished, the setup of your VM might be incomplete. You might still be able to interact with the VM without the GUI. However, the easiest way to fix this is to run `vagrant destroy` and start from the beginning.
+In case you killed the session before provisioning finished, the setup of your VM might be incomplete. You might still be able to interact with the VM without the GUI. In that case, run `vagrant up --provision`.

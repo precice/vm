@@ -12,8 +12,9 @@ several solvers and adapters, as well as example and tutorial files.
 
 1. Get a Virtual Machine provider, such as [VirtualBox](https://www.virtualbox.org/)
 2. Get [Vagrant](https://www.vagrantup.com/)
-3. Start with `vagrant up`
-4. After the provisioning finishes, restart the machine with `vagrant reload` to get a full GUI
+3. Go to the root folder of this repository and start with `vagrant up`.
+4. Be patient. Vagrant will now setup your virtual machine. You don't have to do anything and your terminal will be very busy.
+5. After the provisioning finishes, restart the machine with `vagrant reload` to get a full GUI
 
 You can afterwards also see and manage the produced VM in VirtualBox.
 
@@ -54,3 +55,7 @@ The adapter repositories remain in `/home/vagrant/`.
 ### This does not seem to work on my machine
 
 Even though most hardware supports virtualization, your CPU may not or you may need to enable it in your BIOS/UEFI settings.
+
+### There is no GUI
+
+In case you killed the session before provisioning finished, the setup of your VM might be incomplete. You might still be able to interact with the VM without the GUI. However, the easiest way to fix this is to run `vagrant destroy` and start from the beginning.

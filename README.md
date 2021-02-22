@@ -12,8 +12,9 @@ several solvers and adapters, as well as example and tutorial files.
 
 1. Get a Virtual Machine provider, such as [VirtualBox](https://www.virtualbox.org/)
 2. Get [Vagrant](https://www.vagrantup.com/)
-3. Start with `vagrant up`
-4. After the provisioning finishes, restart the machine with `vagrant reload` to get a full GUI
+3. Go to the root folder of this repository and start with `vagrant up`.
+4. Be patient. Vagrant will now setup your virtual machine. You don't have to do anything and your terminal will be very busy.
+5. After the provisioning finishes, restart the machine with `vagrant reload` to get a full GUI
 
 You can afterwards also see and manage the produced VM in VirtualBox.
 
@@ -66,3 +67,7 @@ Even though most hardware supports virtualization, your CPU may not or you may n
 The most common reason can be that one of the third-party APT repositories
 (such as the repository of OpenFOAM on SourceForge) do not respond.
 Usually running again (e.g. with `vagrant up --provision`) helps.
+
+### There is no GUI
+
+In case you killed the session before provisioning finished, the setup of your VM might be incomplete. You might still be able to interact with the VM without the GUI. In that case, run `vagrant up --provision`.

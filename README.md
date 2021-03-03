@@ -8,7 +8,11 @@ Vagrant pulls an Ubuntu 20.04 "base box" and asks e.g. VirtualBox to start a vir
 It then installs basic tools (such as a desktop environment), a preCICE release,
 several solvers and adapters, as well as example and tutorial files.
 
+Ready-to-use boxes are available on [Vagrant Cloud](https://app.vagrantup.com/precice/boxes/precice-vm).
+
 ## How to use this?
+
+**Note:** If you only want to directly get a pre-built box, look at the [documentation](https://www.precice.org/installation-vm.html).
 
 1. Get a Virtual Machine provider, such as [VirtualBox](https://www.virtualbox.org/)
 2. Get [Vagrant](https://www.vagrantup.com/)

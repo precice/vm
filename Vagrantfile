@@ -35,6 +35,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provisioning/install-precice.sh"
 
   # Install solvers, adapters, and related tools
+  config.vm.provision "shell", path: "provisioning/install-config-visualizer.sh"
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh"
   config.vm.provision "shell", path: "provisioning/install-dealii.sh"
   config.vm.provision "shell", path: "provisioning/install-calculix.sh"

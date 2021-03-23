@@ -24,6 +24,7 @@ cd /home/${USER}/Desktop
         sudo -u ${USER} git clone --branch master https://github.com/precice/tutorials.git
     fi
 cd -
+sudo apt-get -y install gnuplot # needed for watchpoint scripts of tutorials
 
 ### OPTIONAL - preCICE Python bindings and Python example
 # Get PIP and the preCICE Python bindings

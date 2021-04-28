@@ -6,10 +6,8 @@ wget -q -O - https://dl.openfoam.com/add-debian-repo.sh | sudo bash
 
 # Install OpenFOAM v2012:
 sudo apt-get install -y openfoam2012-dev
-# Enable OpenFOAM by default and apply now:
+# Enable OpenFOAM by default:
 echo ". /usr/lib/openfoam/openfoam2012/etc/bashrc" >> ~/.bashrc
-# shellcheck source=/dev/null
-# . /usr/lib/openfoam/openfoam2012/etc/bashrc
 
 # Get the OpenFOAM-preCICE adapter
 if [ ! -d "openfoam-adapter/" ]; then
@@ -18,5 +16,5 @@ fi
 (
     cd openfoam-adapter
     git pull
-    ./Allwmake
+    openfoam2012 ./Allwmake
 )

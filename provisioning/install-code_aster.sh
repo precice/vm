@@ -16,7 +16,7 @@ if [ ! -d "code_aster/" ]; then
         cd aster-full-src-14.6.0
         yes | python3 setup.py install --prefix="${HOME}/code_aster"
     )
-    echo ". code_aster/etc/codeaster/profile.sh" >>~/.bashrc
+    echo ". ${HOME}/code_aster/etc/codeaster/profile.sh" >>~/.bashrc
     rm -rf ./aster-full-src-14.6.0/
 fi
 

@@ -50,6 +50,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "file", source: "provisioning/get-started.desktop", destination: "~/Desktop/get-started.desktop"
 
   # Pre-packaging steps
+  # config.vm.provision "shell", path: "provisioning/cleanup.sh", privileged: false
   # Add the default Vagrant insecure public key to the authorized keys
   config.vm.provision "file", source: "provisioning/vagrant.pub", destination: "~/.ssh/vagrant.pub"
   config.vm.provision "shell", inline: <<-SHELL

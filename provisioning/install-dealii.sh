@@ -17,4 +17,4 @@ fi
 )
 
 # Add the deal.II adapter to PATH
-echo "export PATH=\"~/dealii-adapter:\${PATH}\"" >> ~/.bashrc
+echo "export PATH=\"~/dealii-adapter:\${PATH}\"" >>~/.bashrc

@@ -8,7 +8,7 @@ fi
 pip3 install --user -e config-visualizer
 
 # Add the config-visualizer to PATH
-echo "export PATH=\"~/config-visualizer/bin:\${PATH}\"" >> ~/.bashrc
+echo "export PATH=\"~/config-visualizer/bin:\${PATH}\"" >>~/.bashrc
 
 # By default, there is no `python` executable, there is only `python3`,
 # which causes issues to the config-visualizer

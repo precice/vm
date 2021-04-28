@@ -27,7 +27,6 @@ if [ ! -d "tutorials/" ]; then
     ln -sf ~/tutorials ~/Desktop/
 fi
 
-
 ### OPTIONAL - preCICE Python bindings and Python example
 # Get PIP and the preCICE Python bindings
 sudo apt-get install -y python3-pip

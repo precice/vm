@@ -4,9 +4,9 @@ set -ex
 # Install dependencies
 sudo apt-get install -y libarpack2-dev libspooles-dev libyaml-cpp-dev
 
-# Install CalculiX 
+# Install CalculiX
 wget --quiet http://www.dhondt.de/ccx_2.16.src.tar.bz2
-tar xvjf ccx_2.16.src.tar.bz2 
+tar xvjf ccx_2.16.src.tar.bz2
 
 # Get the CalculiX-preCICE adapter
 if [ ! -d "calculix-adapter/" ]; then
@@ -19,4 +19,4 @@ fi
 )
 
 # Add the CalculiX adapter to PATH
-echo "export PATH=\"~/calculix-adapter/bin:\${PATH}\"" >> ~/.bashrc
+echo "export PATH=\"~/calculix-adapter/bin:\${PATH}\"" >>~/.bashrc

@@ -1,4 +1,4 @@
-name: Build (provision)
+name: Build and package
 on:
   pull_request:
     types: [ready_for_review]

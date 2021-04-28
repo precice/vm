@@ -6,10 +6,12 @@ wget --quiet https://github.com/su2code/SU2/archive/v6.0.0.tar.gz && tar -xzf v6
 
 # Add SU2 to PATH and apply.
 # We first export to a separate script, so that we can load it here (non-interactive shell).
-echo "export SU2_HOME=\"/home/vagrant/SU2-6.0.0\"" >> ~/.su2-bashrc
-echo "export SU2_RUN=\"\${SU2_HOME}/SU2_CFD/bin\"" >> ~/.su2-bashrc
-echo "export PATH=\"\${SU2_RUN}:\${PATH}\"" >> ~/.su2-bashrc
-echo "export PYTHONPATH=\"\${SU2_RUN}:\${PYTHONPATH}\"" >> ~/.su2-bashrc
+{
+    echo "export SU2_HOME=\"/home/vagrant/SU2-6.0.0\""
+    echo "export SU2_RUN=\"\${SU2_HOME}/SU2_CFD/bin\""
+    echo "export PATH=\"\${SU2_RUN}:\${PATH}\""
+    echo "export PYTHONPATH=\"\${SU2_RUN}:\${PYTHONPATH}\""
+} >> ~/.su2-bashrc
 
 echo ". ~/.su2-bashrc" >> ~/.bashrc
 # shellcheck source=/dev/null

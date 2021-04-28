@@ -16,6 +16,10 @@ jobs:
         key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
         restore-keys: |
           ${{ runner.os }}-vagrant-
+
+    - name: Generate Vagrantfile MD5 hash
+      run: md5sum Vagrantfile
+
     - name: Show Vagrant version
       run: vagrant --version
 
@@ -25,8 +29,8 @@ jobs:
     - name: Package Vagrant box
       run: vagrant package --base "preCICE-VM" --output preCICE.box
 
-    - name: Generate Vagrant box hash
-      run: sha256sum preCICE.box
+    - name: Generate Vagrant box MD5 hash
+      run: md5sum preCICE.box
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v2

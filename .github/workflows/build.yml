@@ -17,9 +17,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-vagrant-
 
-    - name: Generate Vagrantfile SHA256 hash
-      run: shasum -a 256 Vagrantfile
-
     - name: Show Vagrant version
       run: vagrant --version
 

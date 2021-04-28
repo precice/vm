@@ -20,4 +20,4 @@ fi
 )
 
 # Add the CalculiX adapter to PATH
-echo "export PATH=\"~/calculix-adapter/bin:\${PATH}\"" >>~/.bashrc
+echo "export PATH=\"\${HOME}/calculix-adapter/bin:\${PATH}\"" >>~/.bashrc

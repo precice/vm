@@ -55,7 +55,5 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     cat /home/vagrant/.ssh/vagrant.pub >> /home/vagrant/.ssh/authorized_keys
   SHELL
-  # Cleanup all object files from compilation
-  config.vm.provision "shell", inline: "find ~ -type f -name '*.o' -exec rm {} \;"
 
 end

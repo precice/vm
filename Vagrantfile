@@ -26,32 +26,35 @@ Vagrant.configure("2") do |config|
   end
 
   # Install a desktop environment and basic tools
-  config.vm.provision "shell", path: "provisioning/install-basics.sh"
+  config.vm.provision "shell", path: "provisioning/install-basics.sh", privileged: false
   
   # Install common development tools
-  config.vm.provision "shell", path: "provisioning/install-devel.sh"
+  config.vm.provision "shell", path: "provisioning/install-devel.sh", privileged: false
   
   # Install preCICE
-  config.vm.provision "shell", path: "provisioning/install-precice.sh"
+  config.vm.provision "shell", path: "provisioning/install-precice.sh", privileged: false
 
   # Install solvers, adapters, and related tools
-  config.vm.provision "shell", path: "provisioning/install-config-visualizer.sh"
-  config.vm.provision "shell", path: "provisioning/install-openfoam.sh"
-  config.vm.provision "shell", path: "provisioning/install-dealii.sh"
-  config.vm.provision "shell", path: "provisioning/install-calculix.sh"
-  config.vm.provision "shell", path: "provisioning/install-fenics.sh"
-  config.vm.provision "shell", path: "provisioning/install-nutils.sh"
-  config.vm.provision "shell", path: "provisioning/install-su2.sh"
-  config.vm.provision "shell", path: "provisioning/install-paraview.sh"
+  config.vm.provision "shell", path: "provisioning/install-config-visualizer.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-openfoam.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-calculix.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-fenics.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-nutils.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
 
   # Post-installation steps
-  config.vm.provision "shell", path: "provisioning/post-install.sh"
-  config.vm.provision "file", source: "provisioning/install-vscode.sh", destination: "~/Desktop/install-vscode.sh"
+  config.vm.provision "shell", path: "provisioning/post-install.sh", privileged: false
+  config.vm.provision "file", source: "provisioning/install-vscode.sh", destination: "~/install-vscode.sh"
+  config.vm.provision "file", source: "provisioning/get-started.desktop", destination: "~/Desktop/get-started.desktop"
 
   # Pre-packaging steps
+  # config.vm.provision "shell", path: "provisioning/cleanup.sh", privileged: false
   # Add the default Vagrant insecure public key to the authorized keys
   config.vm.provision "file", source: "provisioning/vagrant.pub", destination: "~/.ssh/vagrant.pub"
   config.vm.provision "shell", inline: <<-SHELL
     cat /home/vagrant/.ssh/vagrant.pub >> /home/vagrant/.ssh/authorized_keys
   SHELL
+
 end

@@ -1,15 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -ex
 
-USER="vagrant"
-
 # Install FEniCS from APT
-apt-get install -y software-properties-common
-add-apt-repository -y ppa:fenics-packages/fenics
-apt-get -y update
-apt-get -y install --no-install-recommends fenics
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository -y ppa:fenics-packages/fenics
+sudo apt-get -y update
+sudo apt-get -y install --no-install-recommends fenics
 
 # Install the FEniCS-preCICE adapter from PIP
-sudo -u ${USER} pip3 install --user fenicsprecice
-# Remove a conflicting with the adapter package
-pip3 uninstall -y fenics-ufl
+pip3 install --user fenicsprecice

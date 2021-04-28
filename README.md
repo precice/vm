@@ -23,6 +23,7 @@ Ready-to-use boxes are available on [Vagrant Cloud](https://app.vagrantup.com/pr
 You can afterwards also see and manage the produced VM in VirtualBox.
 
 A few things you may need:
+
 - The username and password are `vagrant`/`vagrant`
 - The keyboard layout is US English (QWERTY). You can change this in [`install-basics.sh`](./install-basics.sh) or through the keyboard setting shortcut on `~/Desktop`.
 - Find scripts to install additional software on `~/Desktop/shared`.
@@ -40,6 +41,7 @@ A few things you may need:
 ## What is included?
 
 This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob/master/packer_templates/ubuntu/ubuntu-20.04-amd64.json) base box and installs:
+
 - Xubuntu-core (Xfce desktop environment) and related tools
 - VirtualBox guest additions
 - Terminator (a nice split-window terminal emulator, find it in `Applications > System`)
@@ -49,14 +51,15 @@ This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob
 - preCICE config visualizer latest from the master branch
 - preCICE Python bindings
 - OpenFOAM v2012 and the OpenFOAM-preCICE adapter
-- deal.II 9.2 from the official backports and the deal.II-preCICE adapter (you still need to copy the compiled executables wherever you need them)
+- deal.II 9.2 from the official backports and the deal.II-preCICE adapter
 - CalculiX 2.16 from source and the CalculiX-preCICE adapter
 - FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter
 - Nutils latest from PIP
 - SU2 6.0.0 and the SU2-preCICE adapter from source
 - Paraview from the official binaries
 
-It then adds on the `/home/vagrant/Desktop`:
+It then adds on the `/home/vagrant/`:
+
 - The preCICE examples (solverdummies), including a copy of the Python solverdummy.
 - The preCICE tutorials from the `precice/tutorials`
 

@@ -29,6 +29,6 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: precice-vagrant-box
-          path: |
-            preCICE.box
+          path: preCICE.box
+          retention-days: 7
         

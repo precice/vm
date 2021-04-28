@@ -25,6 +25,9 @@ jobs:
     - name: Package Vagrant box
       run: vagrant package --base "preCICE-VM" --output preCICE.box
 
+    - name: Generate Vagrant box hash
+      run: sha256sum preCICE.box
+
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:

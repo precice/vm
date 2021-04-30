@@ -23,6 +23,7 @@ Ready-to-use boxes are available on [Vagrant Cloud](https://app.vagrantup.com/pr
 You can afterwards also see and manage the produced VM in VirtualBox.
 
 A few things you may need:
+
 - The username and password are `vagrant`/`vagrant`
 - The keyboard layout is US English (QWERTY). You can change this in [`install-basics.sh`](./install-basics.sh) or through the keyboard setting shortcut on `~/Desktop`.
 - Find scripts to install additional software on `~/Desktop/shared`.
@@ -40,27 +41,33 @@ A few things you may need:
 ## What is included?
 
 This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob/master/packer_templates/ubuntu/ubuntu-20.04-amd64.json) base box and installs:
+
 - Xubuntu-core (Xfce desktop environment) and related tools
 - VirtualBox guest additions
 - Terminator (a nice split-window terminal emulator, find it in `Applications > System`)
 - Git, CMake, ccmake
 - Editors: nano, vim, gedit
 - preCICE latest for the master branch
-- preCICE config visualizer latest from the master branch
-- preCICE Python bindings
-- OpenFOAM v2012 and the OpenFOAM-preCICE adapter
-- deal.II 9.2 from the official backports and the deal.II-preCICE adapter (you still need to copy the compiled executables wherever you need them)
-- CalculiX 2.16 from source and the CalculiX-preCICE adapter
-- FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter
+- preCICE config visualizer (master)
+- preCICE Python bindings (PIP)
+- OpenFOAM v2012 and the OpenFOAM-preCICE adapter (master)
+- deal.II 9.2 from the official backports and the deal.II-preCICE adapter (master)
+- CalculiX 2.16 from source and the CalculiX-preCICE adapter (master)
+- FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
 - Nutils latest from PIP
-- SU2 6.0.0 and the SU2-preCICE adapter from source
+- SU2 6.0.0 and the SU2-preCICE adapter (master)
+- code_aster 14.6 and the code_aster-preCICE adapter (master)
 - Paraview from the official binaries
+- Gnuplot
 
-It then adds on the `/home/vagrant/Desktop`:
+It then adds to the `/home/vagrant/`:
+
 - The preCICE examples (solverdummies), including a copy of the Python solverdummy.
 - The preCICE tutorials from the `precice/tutorials`
 
 The adapter repositories remain in `/home/vagrant/`.
+It also adds a few shortcuts on the Desktop (see `post-install.sh`).
+At the end, it cleans up all object files and the APT cache (see `cleanup.sh`).
 
 ## Troubleshooting
 
@@ -77,3 +84,27 @@ Usually running again (e.g. with `vagrant up --provision`) helps.
 ### There is no GUI
 
 In case you killed the session before provisioning finished, the setup of your VM might be incomplete. You might still be able to interact with the VM without the GUI. In that case, run `vagrant up --provision`.
+
+## Testing before publishing
+
+We now have a GitHub action that can build the Vagrant box. This workflow only runs for pull requests that are marked as "ready for review" (i.e. not "draft"), as it takes significant time to complete (~1.5h). If you already submitted a normal PR but the workflow is not triggered, convert the PR to draft and then to "ready for review" again.
+
+The workflow uploads the resulting box as an artifact and it also prints its SHA256 checksum before that. Download the job artifact and unzip it. Then run add the box to Vagrant:
+
+```bash
+vagrant box add test-box precice-vagrant-box/preCICE.box 
+```
+
+You can then start a VM by going into an empty directory and executing:
+
+```bash
+vagrant init test-box
+vagrant up
+```
+
+Afterwards, you probably want to destroy everything to save storage space:
+
+```bash
+vagrant destroy
+vagrant box remove test-box
+```

@@ -49,6 +49,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provisioning/post-install.sh", privileged: false
   config.vm.provision "file", source: "provisioning/install-vscode.sh", destination: "~/install-vscode.sh"
   config.vm.provision "file", source: "provisioning/get-started.desktop", destination: "~/Desktop/get-started.desktop"
+  config.vm.provision "file", source: "provisioning/.alias", destination: "~/.alias"
 
   # Pre-packaging steps
   config.vm.provision "shell", path: "provisioning/cleanup.sh", privileged: false

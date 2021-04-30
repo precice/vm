@@ -9,3 +9,5 @@ ln -sf /vagrant/ ~/Desktop/shared
     echo "xset s off -dpms"
     echo "gsettings set org.gnome.desktop.screensaver lock-enabled false"
 } >> ~/.bashrc
+
+echo "source ${HOME}/.alias" >>~/.bashrc

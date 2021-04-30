@@ -1,0 +1,12 @@
+# preCICE config visualizer
+function config-visualizer-pdf(){
+  cat $1 | precice-config-visualizer | dot -Tpdf > precice-config.pdf
+}
+
+function config-visualizer-svg(){
+  cat $1 | precice-config-visualizer | dot -Tsvg > precice-config.svg
+}
+
+function config-visualizer(){
+  cat $1 | precice-config-visualizer | dot -Tpng > precice-config.png
+}

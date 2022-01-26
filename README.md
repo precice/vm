@@ -40,7 +40,7 @@ A few things you may need:
 
 ## What is included?
 
-This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob/master/packer_templates/ubuntu/ubuntu-20.04-amd64.json) base box and installs:
+This box is based on the [generic/ubuntu2004](https://github.com/lavabit/robox/tree/master/scripts/ubuntu2004) base box and installs:
 
 - Xubuntu-core (Xfce desktop environment) and related tools
 - VirtualBox guest additions
@@ -108,4 +108,15 @@ Afterwards, you probably want to destroy everything to save storage space:
 ```bash
 vagrant destroy
 vagrant box remove test-box
+```
+
+## KVM support
+
+If you require a more responsive experience, lower overhead, or exotic features such as GPU pass through, then the `libvirt` vagrant box is for you.
+This allows you to run the vagrant box via libvirt and QEMU as a Kernerl Virtual Machine (KVM).
+
+To use this box, first install the vagrant plugin `vagrant-libvirt` following the [official installation instructions](https://github.com/vagrant-libvirt/vagrant-libvirt#installation).
+Then you follow the normal usage instructions above, but you need to tell vagrant to use the `libvirt` box by passing one additional option:
+```
+vagrant up --provider=libvirt
 ```

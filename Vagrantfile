@@ -28,6 +28,7 @@ Vagrant.configure("2") do |config|
 
   # The libvirt provider needs to be installed using "vagrant plugin install vagrant-libvirt"
   config.vm.provider :libvirt do |lv|
+    lv.forward_ssh_port = true
     lv.title = "preCICE-VM"
     lv.cpus = 2
     lv.memory = 2048

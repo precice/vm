@@ -2,8 +2,9 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  # The Vagrant documentation recommends the bento images instead of ubuntu (more providers, open source)
-  config.vm.box = "bento/ubuntu-20.04"
+  # The generic/ images support virtualbox as well as libvirt and hyperv.
+  # This allows us to create performance oriented images for Linux (libvirt) and Windows (hyperv).
+  config.vm.box = "generic/ubuntu2004"
 
   # We don't want the box to automatically update every time it starts.
   # We can instead handle updates internally, without destroying the machine.
@@ -23,6 +24,13 @@ Vagrant.configure("2") do |config|
     # The default graphics controller is VboxSVGA. This seems to cause issues with auto-scaling.
     # VMSVGA seems to work better.
     vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]
+  end
+
+  # The libvirt provider needs to be installed using "vagrant plugin install vagrant-libvirt"
+  config.vm.provider :libvirt do |lv|
+    lv.title = "preCICE-VM"
+    lv.cpus = 2
+    lv.memory = 2048
   end
 
   # Install a desktop environment and basic tools

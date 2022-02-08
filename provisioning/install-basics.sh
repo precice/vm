@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 
-# Some repos are a bit fragile and needs multiple download tries
+# Some repos are a bit fragile and need multiple download tries
 echo 'APT::Acquire::Retries "4";' | sudo tee /etc/apt/apt.conf.d/80-retries
 
 # We (may) need the multiverse repository for the VBox Guest Additions

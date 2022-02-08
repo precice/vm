@@ -4,10 +4,10 @@ set -ex
 # Add the signing key, add the repository, update:
 wget -q -O - https://dl.openfoam.com/add-debian-repo.sh | sudo bash
 
-# Install OpenFOAM v2012:
-sudo apt-get install -y openfoam2012-dev
+# Install OpenFOAM v2112:
+sudo apt-get install -y openfoam2112-dev
 # Enable OpenFOAM by default:
-echo ". /usr/lib/openfoam/openfoam2012/etc/bashrc" >> ~/.bashrc
+echo ". /usr/lib/openfoam/openfoam2112/etc/bashrc" >> ~/.bashrc
 
 # Get the OpenFOAM-preCICE adapter
 if [ ! -d "openfoam-adapter/" ]; then
@@ -16,5 +16,5 @@ fi
 (
     cd openfoam-adapter
     git pull
-    openfoam2012 ./Allwmake
+    openfoam2112 ./Allwmake
 )

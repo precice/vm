@@ -16,7 +16,7 @@ fi
 (
     cd calculix-adapter
     git pull
-    make -j $(nproc)
+    make -j "$(nproc)"
 )
 
 # Add the CalculiX adapter to PATH

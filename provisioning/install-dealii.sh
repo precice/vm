@@ -13,7 +13,7 @@ fi
 (
     cd dealii-adapter
     git pull
-    cmake . && make -j $(nproc)
+    cmake . && make -j "$(nproc)"
 )
 
 # Add the deal.II adapter to PATH

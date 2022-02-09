@@ -52,7 +52,7 @@ This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob
 - preCICE Python bindings (PIP)
 - OpenFOAM v2112 and the OpenFOAM-preCICE adapter (master)
 - deal.II 9.2 from the official backports and the deal.II-preCICE adapter (master)
-- CalculiX 2.16 from source and the CalculiX-preCICE adapter (master)
+- CalculiX 2.19 from source and the CalculiX-preCICE adapter (master)
 - FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
 - Nutils latest from PIP
 - SU2 6.0.0 and the SU2-preCICE adapter (master)

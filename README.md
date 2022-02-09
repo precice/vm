@@ -87,7 +87,7 @@ In case you killed the session before provisioning finished, the setup of your V
 
 ## Testing before publishing
 
-We now have a GitHub action that can build the Vagrant box. This workflow only runs for pull requests that are marked as "ready for review" (i.e. not "draft"), as it takes significant time to complete (~1.5h). If you already submitted a normal PR but the workflow is not triggered, convert the PR to draft and then to "ready for review" again.
+We now have a GitHub action that can build the Vagrant box. This workflow only runs for pull requests that are marked as "ready for review" (i.e. not "draft"), as it takes significant time to complete (~1.5h). If you already submitted a normal PR but the workflow is not triggered, you can manually trigger it from the "Actions" tab.
 
 The workflow uploads the resulting box as an artifact and it also prints its SHA256 checksum before that. Download the job artifact and unzip it. Then run add the box to Vagrant:
 

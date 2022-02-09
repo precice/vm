@@ -18,3 +18,9 @@ fi
     git pull
     openfoam2112 ./Allwmake
 )
+
+# Get swak4Foam (provides groovyBC, needed for the turek-hron-fsi3 tutorial)
+sudo apt-get install -y mercurial
+hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam swak4Foam
+cd swak4Foam
+./AllwmakeAll

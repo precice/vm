@@ -23,4 +23,4 @@ fi
 sudo apt-get install -y mercurial
 hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam swak4Foam
 cd swak4Foam
-./AllwmakeAll
+openfoam2112 ./AllwmakeAll

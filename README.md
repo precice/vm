@@ -57,6 +57,7 @@ This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob
 - Nutils latest from PIP
 - SU2 6.0.0 and the SU2-preCICE adapter (master)
 - code_aster 14.6 and the code_aster-preCICE adapter (master)
+- DUNE 2.8 and the experimental DUNE-preCICE adapter (master)
 - Paraview from the official binaries
 - Gnuplot
 

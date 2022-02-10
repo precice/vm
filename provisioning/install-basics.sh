@@ -11,7 +11,7 @@ sudo apt-get upgrade -qy
 
 # Install the Xfce desktop environment and basic applications
 sudo apt-get install -y xubuntu-core^
-sudo apt-get install -y thunar xfce4-terminal terminator bash-completion tree evince firefox firefox-locale-en baobab
+sudo apt-get install -y thunar xfce4-terminal terminator bash-completion tree evince firefox firefox-locale-en baobab catfish
 
 # Install the VirtualBox guest additions
 sudo apt-get install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11

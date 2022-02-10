@@ -41,4 +41,4 @@ fi
 )
 
 # Remove the libSU2Core.a library to save space (approx. 500MB)
-rm -f ~/SU2-6.0.0/SU2_CFD/obj/libSU2Core.a
+rm -fv ~/SU2-6.0.0/SU2_CFD/obj/libSU2Core.a

@@ -31,6 +31,8 @@ fi
 
 # Remove the code_aster tests to save space (approx. 500MB)
 rm -rf ~/code_aster/14.6/share/aster/tests
+# Remove some documentation to save space (~100MB)
+rm -rf ~/code_aster/public/med-4.00/share/doc
 
 # Optional: Update the tutorials exchange directory (needs to be absolute) and generate the export file.
 (

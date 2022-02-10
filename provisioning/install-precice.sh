@@ -18,6 +18,8 @@ fi
     make -j "$(nproc)"
     rm -fv ./*.deb && make package
     sudo apt-get install -y ./libprecice2_*.deb
+    # Remove generated packages to save space (approx. 70MB)
+    rm -rfv ./*.deb ./*.tar.gz _CPack_Packages
 )
 
 # Collect examples and tutorials

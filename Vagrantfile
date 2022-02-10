@@ -43,6 +43,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provisioning/install-nutils.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
 
   # Post-installation steps

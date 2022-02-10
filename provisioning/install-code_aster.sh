@@ -29,6 +29,9 @@ fi
     ln -sf "${HOME}/code_aster-adapter/cht/adapter.py" .
 )
 
+# Remove the code_aster tests to save space (approx. 500MB)
+rm -rf ~/code_aster/14.6/share/aster/tests
+
 # Optional: Update the tutorials exchange directory (needs to be absolute) and generate the export file.
 (
     cd "${HOME}/tutorials/flow-over-heated-plate-steady-state"

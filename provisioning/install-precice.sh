@@ -43,6 +43,9 @@ fi
 (
     cd tutorials/quickstart/solid-cpp/ && cmake . && make
 )
+(
+    cd tutorials/heat-exchanger && ./download-meshes.sh
+)
 sudo apt-get -y install gnuplot # needed for watchpoint scripts of tutorials
 
 

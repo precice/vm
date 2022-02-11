@@ -40,6 +40,9 @@ if [ ! -d "tutorials/" ]; then
     git clone --depth=1 --branch master https://github.com/precice/tutorials.git
     ln -sf ~/tutorials ~/Desktop/
 fi
+(
+    cd tutorials/quickstart/solid-cpp/ && cmake . && make
+)
 sudo apt-get -y install gnuplot # needed for watchpoint scripts of tutorials
 
 

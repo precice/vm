@@ -24,6 +24,18 @@ fi
 
 # Collect examples and tutorials
 cp -r /usr/share/precice/examples/ ./precice-examples
+(
+    cd precice-examples/solverdummies
+    cd c && cmake . && make && cd ..
+    cd cpp && cmake . && make && cd ..
+    cd fortran && cmake . && make && cd ..
+    if [! -d "fortran-module/" ]; then
+        git clone --depth=1 --branch master https://github.com/precice/fortran-module.git
+    fi
+    cd fortran-module && make
+    cd examples/solverdummy && make
+)
+
 if [ ! -d "tutorials/" ]; then
     git clone --depth=1 --branch master https://github.com/precice/tutorials.git
     ln -sf ~/tutorials ~/Desktop/

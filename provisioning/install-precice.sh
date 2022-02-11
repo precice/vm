@@ -29,7 +29,7 @@ cp -r /usr/share/precice/examples/ ./precice-examples
     cd c && cmake . && make && cd ..
     cd cpp && cmake . && make && cd ..
     cd fortran && cmake . && make && cd ..
-    if [! -d "fortran-module/" ]; then
+    if [ ! -d "fortran-module/" ]; then
         git clone --depth=1 --branch master https://github.com/precice/fortran-module.git
     fi
     cd fortran-module && make

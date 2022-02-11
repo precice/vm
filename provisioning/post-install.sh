@@ -3,7 +3,7 @@ set -ex
 
 # Setup swak4Foam
 (
-    cd "${HOME}/OpenFOAM/vagrant-v2112/platforms/linux64GccDPInt32Opt/lib/"
+    cd "${HOME}/OpenFOAM/vagrant-v2112/platforms/linux64GccDPInt32Opt/"
     tar -xzvf swak4Foam.tar.gz
 )
 

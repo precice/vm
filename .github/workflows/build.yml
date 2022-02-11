@@ -14,6 +14,7 @@ jobs:
     - name: Cache Vagrant boxes
       uses: actions/cache@v2
       with:
+        lfs: true
         path: ~/.vagrant.d/boxes
         key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
         restore-keys: |

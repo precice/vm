@@ -35,7 +35,7 @@ fi
 # sudo apt-get purge --autoremove -y mercurial # This also removes Python2, yipieh!
 #
 # # Option 2: Use pre-built binaries
-# # (see Vagrantfile, rebuild and update for OpenFOAM version other than v2112)
+# # (see Vagrantfile and post-install.sh, rebuild and update for OpenFOAM version other than v2112)
 
 # Build the tutorials partitioned-heat-conduction solver
 cd ~/tutorials/partitioned-heat-conduction/openfoam-solver && wmake

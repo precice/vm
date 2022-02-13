@@ -37,12 +37,14 @@ Vagrant.configure("2") do |config|
   # Install solvers, adapters, and related tools
   config.vm.provision "shell", path: "provisioning/install-config-visualizer.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh", privileged: false
+  config.vm.provision "file", source: "provisioning/prebuilt/swak4Foam/swak4Foam.tar.gz", destination: "~/OpenFOAM/vagrant-v2112/platforms/linux64GccDPInt32Opt/swak4Foam.tar.gz"
   config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-calculix.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-fenics.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-nutils.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
 
   # Post-installation steps

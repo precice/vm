@@ -50,14 +50,15 @@ This box is based on the [bento/ubuntu-20.04](https://github.com/chef/bento/blob
 - preCICE latest for the master branch
 - preCICE config visualizer (master)
 - preCICE Python bindings (PIP)
-- OpenFOAM v2012 and the OpenFOAM-preCICE adapter (master)
-- deal.II 9.2 from the official backports and the deal.II-preCICE adapter (master)
-- CalculiX 2.16 from source and the CalculiX-preCICE adapter (master)
+- OpenFOAM v2112 and the OpenFOAM-preCICE adapter (master)
+- deal.II 9.3 from the official backports and the deal.II-preCICE adapter (master)
+- CalculiX 2.19 from source and the CalculiX-preCICE adapter (master)
 - FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
 - Nutils latest from PIP
 - SU2 6.0.0 and the SU2-preCICE adapter (master)
 - code_aster 14.6 and the code_aster-preCICE adapter (master)
-- Paraview from the official binaries
+- DUNE 2.8 and the experimental DUNE-preCICE adapter (master)
+- Paraview from APT
 - Gnuplot
 
 It then adds to the `/home/vagrant/`:
@@ -87,7 +88,7 @@ In case you killed the session before provisioning finished, the setup of your V
 
 ## Testing before publishing
 
-We now have a GitHub action that can build the Vagrant box. This workflow only runs for pull requests that are marked as "ready for review" (i.e. not "draft"), as it takes significant time to complete (~1.5h). If you already submitted a normal PR but the workflow is not triggered, convert the PR to draft and then to "ready for review" again.
+We now have a GitHub action that can build the Vagrant box. This workflow only runs for pull requests that are marked as "ready for review" (i.e. not "draft"), as it takes significant time to complete (~1.5h). If you already submitted a normal PR but the workflow is not triggered, you can manually trigger it from the "Actions" tab.
 
 The workflow uploads the resulting box as an artifact and it also prints its SHA256 checksum before that. Download the job artifact and unzip it. Then run add the box to Vagrant:
 

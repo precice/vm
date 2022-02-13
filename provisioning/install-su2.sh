@@ -35,7 +35,10 @@ fi
     ./configure --disable-metis --disable-parmetis --disable-cgns --disable-DOT \
         --disable-MSH --disable-DEF --disable-SOL --disable-GEO \
         --prefix="${SU2_RUN}" CXXFLAGS='-std=c++11'
-    make -j 2
+    make -j "$(nproc)"
     # We still need sudo for whatever reason
     sudo make install
 )
+
+# Remove the libSU2Core.a library to save space (approx. 500MB)
+rm -fv ~/SU2-6.0.0/SU2_CFD/obj/libSU2Core.a

@@ -2,12 +2,16 @@ name: Build and package
 on:
   pull_request:
     types: [ready_for_review]
+  workflow_dispatch:
+    
 jobs:
   vagrant-up:
     runs-on: macos-10.15
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        lfs: true
 
     - name: Cache Vagrant boxes
       uses: actions/cache@v2

@@ -6,3 +6,6 @@ sudo apt-get clean
 
 # Cleanup all object files from compilation
 find "${HOME}" -type f -name '*.o' -exec rm -fv {} \;
+
+# Remove the cache
+rm -rfv ~/.cache

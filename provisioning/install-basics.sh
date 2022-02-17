@@ -4,6 +4,9 @@ set -ex
 # Some repos are a bit fragile and need multiple download tries
 echo 'APT::Acquire::Retries "4";' | sudo tee /etc/apt/apt.conf.d/80-retries
 
+# Setup auto-login for the graphical session
+echo "autologin-user=vagrant" | sudo tee --append /usr/share/lightdm/lightdm.conf.d/60-xubuntu.conf
+
 # We (may) need the multiverse repository for the VBox Guest Additions
 sudo apt-add-repository multiverse
 sudo apt-get update

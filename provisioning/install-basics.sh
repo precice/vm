@@ -4,9 +4,6 @@ set -ex
 # Some repos are a bit fragile and need multiple download tries
 echo 'APT::Acquire::Retries "4";' | sudo tee /etc/apt/apt.conf.d/80-retries
 
-# Setup auto-login for the graphical session
-echo "autologin-user=vagrant" | sudo tee --append /usr/share/lightdm/lightdm.conf.d/60-xubuntu.conf
-
 # We (may) need the multiverse repository for the VBox Guest Additions
 sudo apt-add-repository multiverse
 sudo apt-get update
@@ -15,6 +12,9 @@ sudo apt-get upgrade -qy
 # Install the Xfce desktop environment and basic applications
 sudo apt-get install -y xubuntu-core^
 sudo apt-get install -y thunar xfce4-terminal terminator bash-completion tree evince firefox firefox-locale-en baobab catfish
+
+# Setup auto-login for the graphical session
+echo "autologin-user=vagrant" | sudo tee --append /usr/share/lightdm/lightdm.conf.d/60-xubuntu.conf
 
 # Install the VirtualBox guest additions
 sudo apt-get install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11

@@ -20,4 +20,7 @@ chmod +x ~/Desktop/terminator.desktop
     echo "gsettings set org.gnome.desktop.screensaver lock-enabled false"
 } >> ~/.bashrc
 
+# Setup auto-login for the graphical session
+echo "autologin-user=vagrant" | sudo tee --append /usr/share/lightdm/lightdm.conf.d/60-xubuntu.conf
+
 echo "source ${HOME}/.alias" >>~/.bashrc

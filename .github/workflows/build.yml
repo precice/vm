@@ -6,7 +6,7 @@ on:
     
 jobs:
   vagrant-up:
-    runs-on: macos-10.15
+    runs-on: macos-latest
 
     strategy:
       fail-fast: true

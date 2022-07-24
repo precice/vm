@@ -6,7 +6,14 @@ on:
     
 jobs:
   vagrant-up:
-    runs-on: macos-10.15
+    runs-on: macos-12
+
+    strategy:
+      fail-fast: true
+      matrix:
+        provider: [virtualbox] # Add libvirt once available
+
+    name: Build Vagrant Box for ${{ matrix.provider }}
 
     steps:
     - uses: actions/checkout@v2
@@ -21,11 +28,21 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-vagrant-
 
+    - name: Install libvirt
+      if: matrix.provider == 'libvirt'
+      run: |
+        # Install libvirt etc
+        echo "libvirt is currently not supported"
+        exit 1
+        # Install vagrant plugin
+        # vagrant plugin install vagrant-libvirt
+
     - name: Show Vagrant version
       run: vagrant --version
 
     - name: Run vagrant up
-      run: vagrant up
+      run: |
+        vagrant up --provider=${{ matrix.provider }}
 
     - name: Package Vagrant box
       run: vagrant package --base "preCICE-VM" --output preCICE.box
@@ -36,7 +53,7 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
-          name: precice-vagrant-box
+          name: precice-vagrant-box-${{ matrix.provider }}
           path: preCICE.box
           retention-days: 7
         

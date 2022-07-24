@@ -59,6 +59,6 @@ pip3 install --user pyprecice
 if [ ! -d "python-bindings/" ]; then
     git clone --depth=1 --branch master https://github.com/precice/python-bindings.git
 fi
-cp -r python-bindings/solverdummy/ precice-examples/solverdummies/python/
+cp -r python-bindings/examples/solverdummy/ precice-examples/solverdummies/python/
 rm -r python-bindings
 ###

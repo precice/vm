@@ -18,7 +18,7 @@ sudo apt-get install -y thunar xfce4-terminal terminator bash-completion tree ev
 # echo "autologin-user=vagrant" | sudo tee --append /usr/share/lightdm/lightdm.conf.d/60-xubuntu.conf
 
 # Install the VirtualBox guest additions
-sudo apt-get install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+sudo apt-get install -y virtualbox-dkms virtualbox-guest-utils virtualbox-guest-x11
 
 # Create Desktop
 mkdir -p ~/Desktop

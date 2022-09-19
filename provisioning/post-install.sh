@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 set -ex
 
-# Setup swak4Foam
-(
-    cd "${HOME}/OpenFOAM/vagrant-v2112/platforms/linux64GccDPInt32Opt/"
-    tar -xzvf swak4Foam.tar.gz
-)
+# Upgrade to OpenFOAM v2206
+# # Setup swak4Foam
+# (
+#     cd "${HOME}/OpenFOAM/vagrant-v2112/platforms/linux64GccDPInt32Opt/"
+#     tar -xzvf swak4Foam.tar.gz
+# )
 
 # Create a link to the default shared folder
 ln -sf /vagrant/ ~/Desktop/shared

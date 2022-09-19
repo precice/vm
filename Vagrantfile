@@ -4,7 +4,7 @@
 Vagrant.configure("2") do |config|
   # The generic/ images support virtualbox as well as libvirt and hyperv.
   # This allows us to create performance oriented images for Linux (libvirt) and Windows (hyperv).
-  config.vm.box = "generic/ubuntu2004"
+  config.vm.box = "generic/ubuntu2204"
 
   # We don't want the box to automatically update every time it starts.
   # We can instead handle updates internally, without destroying the machine.

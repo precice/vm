@@ -58,6 +58,7 @@ This box is based on the [generic/ubuntu2004](https://github.com/lavabit/robox/t
 - SU2 6.0.0 and the SU2-preCICE adapter (master)
 - code_aster 14.6 and the code_aster-preCICE adapter (master)
 - DUNE 2.8 and the experimental DUNE-preCICE adapter (master)
+- ASTE (vX.X)
 - Paraview from APT
 - Gnuplot
 

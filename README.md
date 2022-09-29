@@ -50,6 +50,7 @@ This box is based on the [generic/ubuntu2004](https://github.com/lavabit/robox/t
 - preCICE latest for the master branch
 - preCICE config visualizer (master)
 - preCICE Python bindings (PIP)
+- preCICE Julia bindings (Pkg)
 - OpenFOAM v2112 and the OpenFOAM-preCICE adapter (master)
 - deal.II 9.3 from the official backports and the deal.II-preCICE adapter (master)
 - CalculiX 2.19 from source and the CalculiX-preCICE adapter (master)

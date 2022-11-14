@@ -56,6 +56,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-julia.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
 
   # Post-installation steps
   config.vm.provision "shell", path: "provisioning/post-install.sh", privileged: false

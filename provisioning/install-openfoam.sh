@@ -20,7 +20,7 @@ fi
 )
 
 # Get swak4Foam (provides groovyBC, needed for the turek-hron-fsi3 tutorial)
-
+#
 # # Option 1: Build from source
 # sudo apt-get install -y mercurial
 # hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam swak4Foam
@@ -29,7 +29,7 @@ fi
 #     hg checkout develop
 #     openfoam2206 ./AllwmakeAll
 # )
-
+#
 # # Remove some swak4Foam files to save space (approx. 150MB)
 # rm -rfv .~swak4Foam
 # sudo apt-get purge --autoremove -y mercurial # This also removes Python2, yipieh!

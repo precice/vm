@@ -5,9 +5,9 @@ set -ex
 sudo apt-get install -y libarpack2-dev libspooles-dev libyaml-cpp-dev
 
 # Install CalculiX
-wget --quiet http://www.dhondt.de/ccx_2.19.src.tar.bz2
-tar xvjf ccx_2.19.src.tar.bz2
-rm -fv ccx_2.19.src.tar.bz2
+wget --quiet http://www.dhondt.de/ccx_2.20.src.tar.bz2
+tar xvjf ccx_2.20.src.tar.bz2
+rm -fv ccx_2.20.src.tar.bz2
 
 # Get the CalculiX-preCICE adapter
 if [ ! -d "calculix-adapter/" ]; then

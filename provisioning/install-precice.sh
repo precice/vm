@@ -55,6 +55,9 @@ sudo apt-get install -y python3-pip
 pip3 install --upgrade pip
 pip3 install --user pyprecice
 
+# Additional python packages
+pip3 install --user pandas # Needed for the post-processing script of the oscillator tutorial
+
 # Get the Python solverdummy into the examples
 if [ ! -d "python-bindings/" ]; then
     git clone --depth=1 --branch master https://github.com/precice/python-bindings.git

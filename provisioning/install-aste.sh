@@ -19,5 +19,5 @@ fi
 )
 
 # Add aste to PATH and libmetis to the library path
-echo "export PATH=\"\${HOME}/aste:\${PATH}\"" >>~/.bashrc
-echo "export LD_LIBRARY_PATH=\"\${HOME}/aste:\${LD_LIBRARY_PATH}\"" >>~/.bashrc
+echo "export PATH=\"\${HOME}/aste/build:\${PATH}\"" >>~/.bashrc
+echo "export LD_LIBRARY_PATH=\"\${HOME}/aste/build:\${LD_LIBRARY_PATH}\"" >>~/.bashrc

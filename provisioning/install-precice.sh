@@ -68,6 +68,7 @@ sudo apt-get install -y python3.8-venv
 (
     cd tutorials/perpendicular-flap/fluid-nutils/
     python3 -m venv nutils6-env
+    # shellcheck source=/dev/null
     source nutils6-env/bin/activate
     pip3 install nutils==6.3 pyprecice
     sed -i "s/python3/nutils6-env\/bin\/python3/g" ./run.sh

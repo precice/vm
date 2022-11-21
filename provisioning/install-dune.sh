@@ -68,5 +68,9 @@ echo "export DUNE_CONTROL_PATH=\"\${HOME}/dune\"" >> ~/.bashrc
 # Copy the built example code to the tutorials
 cp ~/dune/dune-adapter/dune-precice-howto/build-cmake/examples/dune-perpendicular-flap ~/tutorials/perpendicular-flap/solid-dune
 
+# Install dune-fem from PIP
+
+pip3 install --user dune-fem==2.8
+
 # We are done with DUNE, let's do back home
 cd ~

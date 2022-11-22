@@ -5,10 +5,10 @@ set -ex
 sudo apt-get install -y cmake libeigen3-dev libxml2-dev libboost-all-dev petsc-dev python3-dev python3-numpy
 
 # Get preCICE from GitHub:
-# - Always get the latest master, no need for versioning
+# - Always get the latest main branch, no need for versioning
 # - Build in Debug mode, so that users can report bugs
 if [ ! -d "precice/" ]; then
-    git clone --depth=1 --branch master https://github.com/precice/precice.git
+    git clone --depth=1 --branch main https://github.com/precice/precice.git
 fi
 (
     cd precice
@@ -41,6 +41,10 @@ if [ ! -d "tutorials/" ]; then
     ln -sf ~/tutorials ~/Desktop/
 fi
 (
+    cd tutorials/elastic-tube-1d/fluid-cpp/ && mkdir build && cd build && cmake .. && make && cd ../..
+    cd solid-cpp/ && mkdir build && cd build && cmake .. && make
+)
+(
     cd tutorials/quickstart/solid-cpp/ && cmake . && make
 )
 (
@@ -54,6 +58,22 @@ sudo apt-get -y install gnuplot # needed for watchpoint scripts of tutorials
 sudo apt-get install -y python3-pip
 pip3 install --upgrade pip
 pip3 install --user pyprecice
+
+# Additional python packages
+pip3 install --user pandas # Needed for the post-processing script of the oscillator tutorial
+
+# Temporary workaround for https://github.com/precice/vm/issues/61
+# Remove as soon as https://github.com/precice/tutorials/issues/217 gets resolved
+sudo apt-get install -y python3.8-venv
+(
+    cd tutorials/perpendicular-flap/fluid-nutils/
+    python3 -m venv nutils6-env
+    # shellcheck source=/dev/null
+    source nutils6-env/bin/activate
+    pip3 install nutils==6.3 pyprecice
+    sed -i "s/python3/nutils6-env\/bin\/python3/g" ./run.sh
+    deactivate
+)
 
 # Get the Python solverdummy into the examples
 if [ ! -d "python-bindings/" ]; then

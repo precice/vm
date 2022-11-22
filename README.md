@@ -50,6 +50,7 @@ This box is based on the [generic/ubuntu2004](https://github.com/lavabit/robox/t
 - preCICE latest for the master branch
 - preCICE config visualizer (master)
 - preCICE Python bindings (PIP)
+- preCICE Julia bindings (Pkg)
 - OpenFOAM v2112 and the OpenFOAM-preCICE adapter (master)
 - deal.II 9.3 from the official backports and the deal.II-preCICE adapter (master)
 - CalculiX 2.19 from source and the CalculiX-preCICE adapter (master)
@@ -58,6 +59,7 @@ This box is based on the [generic/ubuntu2004](https://github.com/lavabit/robox/t
 - SU2 6.0.0 and the SU2-preCICE adapter (master)
 - code_aster 14.6 and the code_aster-preCICE adapter (master)
 - DUNE 2.8 and the experimental DUNE-preCICE adapter (master)
+- ASTE (master)
 - Paraview from APT
 - Gnuplot
 

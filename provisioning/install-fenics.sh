@@ -9,3 +9,6 @@ sudo apt-get -y install --no-install-recommends fenics
 
 # Install the FEniCS-preCICE adapter from PIP
 pip3 install --user fenicsprecice
+
+# Remove fenics-ufl package manually
+pip3 uninstall -y fenics-ufl

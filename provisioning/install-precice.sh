@@ -41,10 +41,6 @@ if [ ! -d "tutorials/" ]; then
     ln -sf ~/tutorials ~/Desktop/
 fi
 (
-    cd tutorials/elastic-tube-1d/fluid-cpp/ && mkdir build && cd build && cmake .. && make && cd ../..
-    cd solid-cpp/ && mkdir build && cd build && cmake .. && make
-)
-(
     cd tutorials/quickstart/solid-cpp/ && cmake . && make
 )
 (

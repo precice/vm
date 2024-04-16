@@ -44,6 +44,12 @@ fi
     cd tutorials/quickstart/solid-cpp/ && cmake . && make
 )
 (
+    cd tutorials/elastic-tube-1d/solid-rust/ && mkdir -p .cargo && cargo vendor > .cargo/config.toml
+)
+(
+    cd tutorials/elastic-tube-1d/fluid-rust/ && mkdir -p .cargo && cargo vendor > .cargo/config.toml
+)
+(
     cd tutorials/heat-exchanger && ./download-meshes.sh
 )
 sudo apt-get -y install gnuplot # needed for watchpoint scripts of tutorials

@@ -1,18 +1,13 @@
 #!/usr/bin/env bash
 set -ex
 
-# Get the config-visualizer from GitHub
-if [ ! -d "config-visualizer/" ]; then
-    git clone --depth=1 --branch master https://github.com/precice/config-visualizer.git
-fi
-pip3 install --user -e config-visualizer
+# Install CLI dependencies
+sudo apt-get install -y graphviz
+# Install GUI depedencies
+sudo apt-get install -y libcairo2-dev libgirepository1.0-dev gcc libcairo2-dev pkg-config gir1.2-gtk-4.0
+
+# Get the config-visualizer from PIP
+pipx install precice-config-visualizer precice-config-visualizer-gui
 
 # Add the config-visualizer to PATH
 echo "export PATH=\"\${HOME}/config-visualizer/bin:\${PATH}\"" >>~/.bashrc
-
-# By default, there is no `python` executable, there is only `python3`,
-# which causes issues to the config-visualizer
-sudo apt-get install -y python-is-python3
-
-# Install graphviz, which provides dot, an almost required package to make this useful
-sudo apt-get install -y graphviz

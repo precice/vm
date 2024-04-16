@@ -11,6 +11,7 @@ pipx install precice-config-visualizer
 pipx install precice-config-visualizer-gui
 
 # Add the config-visualizer to PATH
+# shellcheck disable=SC2016
 echo 'export PATH="${HOME}/.local/bin:${PATH}"' >> ~/.bashrc
 
 # Add the GUI in the apps menu

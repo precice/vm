@@ -55,7 +55,6 @@ This box is based on the [generic/ubuntu2004](https://github.com/lavabit/robox/t
 - deal.II 9.3 from the official backports and the deal.II-preCICE adapter (master)
 - CalculiX 2.19 from source and the CalculiX-preCICE adapter (master)
 - FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
-- Nutils latest from PIP
 - SU2 6.0.0 and the SU2-preCICE adapter (master)
 - code_aster 14.6 and the code_aster-preCICE adapter (master)
 - DUNE 2.8 and the experimental DUNE-preCICE adapter (master)

@@ -56,7 +56,7 @@ pip3 install --upgrade pip
 pip3 install --user pyprecice
 
 # Additional python packages
-pip3 install --user pandas # Needed for the post-processing script of the oscillator tutorial
+pip3 install --user pandas matplotlib # Needed for the post-processing scripts
 
 # Get the Python solverdummy into the examples
 if [ ! -d "python-bindings/" ]; then

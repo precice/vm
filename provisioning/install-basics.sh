@@ -12,6 +12,7 @@ sudo apt-get upgrade -qy
 # Install the Xfce desktop environment and basic applications
 sudo apt-get install -y xubuntu-core^
 sudo apt-get install -y thunar xfce4-terminal terminator bash-completion tree atril firefox firefox-locale-en baobab catfish
+sudo apt-get install -y python3-dev pipx python-is-python3
 
 # Setup auto-login for the graphical session
 # Disabled due to https://github.com/precice/vm/issues/40

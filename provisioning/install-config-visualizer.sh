@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 set -ex
 
-# Get the config-visualizer from GitHub
-if [ ! -d "config-visualizer/" ]; then
-    git clone --depth=1 --branch master https://github.com/precice/config-visualizer.git
-fi
-pip3 install --user -e config-visualizer
+# Install CLI dependencies
+sudo apt-get install -y graphviz
+# Install GUI depedencies
+sudo apt-get install -y libcairo2-dev libgirepository1.0-dev gcc libcairo2-dev pkg-config gir1.2-gtk-4.0
+
+# Get the config-visualizer from PIP
+pipx install precice-config-visualizer
+pipx install precice-config-visualizer-gui
 
 # Add the config-visualizer to PATH
-echo "export PATH=\"\${HOME}/config-visualizer/bin:\${PATH}\"" >>~/.bashrc
+# shellcheck disable=SC2016
+echo 'export PATH="${HOME}/.local/bin:${PATH}"' >> ~/.bashrc
 
-# By default, there is no `python` executable, there is only `python3`,
-# which causes issues to the config-visualizer
-sudo apt-get install -y python-is-python3
+# Add the GUI in the apps menu
+mkdir -p ~/.local/share/applications ~/.local/share/icons
 
-# Install graphviz, which provides dot, an almost required package to make this useful
-sudo apt-get install -y graphviz
+CV_LOC_SHARE=~/.local/pipx/venvs/precice-config-visualizer-gui/share
+cp $CV_LOC_SHARE/applications/org.precice.config_visualizer.desktop ~/.local/share/applications/
+cp $CV_LOC_SHARE/icons/hicolor/scalable/apps/org.precice.config_visualizer.svg ~/.local/share/icons/

@@ -4,11 +4,11 @@ set -ex
 # Install CLI dependencies
 sudo apt-get install -y graphviz
 # Install GUI depedencies
-sudo apt-get install -y libcairo2-dev libgirepository1.0-dev gcc libcairo2-dev pkg-config gir1.2-gtk-4.0
+sudo apt-get install -y build-essential pkg-config python3-dev libcairo2-dev libgirepository1.0-dev gir1.2-gtk-3.0
 
 # Get the config-visualizer from PIP
-pipx install precice-config-visualizer
-pipx install precice-config-visualizer-gui
+pipx install precice-config-visualizer==1.1.2
+pipx install precice-config-visualizer-gui==0.1.0
 
 # Add the config-visualizer to PATH
 # shellcheck disable=SC2016

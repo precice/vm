@@ -25,7 +25,7 @@ You can afterwards also see and manage the produced VM in VirtualBox.
 A few things you may need:
 
 - The username and password are `vagrant`/`vagrant`
-- The keyboard layout is US English (QWERTY). You can change this in [`install-basics.sh`](./install-basics.sh) or through the keyboard setting shortcut on `~/Desktop`.
+- The keyboard layout is US English (QWERTY). You can change this in [`install-basics.sh`](./provisioning/install-basics.sh) or through the keyboard setting shortcut on `~/Desktop`.
 - Find scripts to install additional software on `~/Desktop/shared`.
 
 ### What else can I do?

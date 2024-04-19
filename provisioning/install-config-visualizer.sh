@@ -7,8 +7,8 @@ sudo apt-get install -y graphviz
 sudo apt-get install -y build-essential pkg-config python3-dev libcairo2-dev libgirepository1.0-dev gir1.2-gtk-3.0
 
 # Get the config-visualizer from PIP
-pipx install precice-config-visualizer==1.1.3
-pipx install precice-config-visualizer-gui==0.1.0
+pipx install --force precice-config-visualizer==1.1.3
+pipx install --force precice-config-visualizer-gui==0.1.0
 
 # Add the config-visualizer to PATH
 # shellcheck disable=SC2016

@@ -55,7 +55,7 @@ This box is based on the ~~[generic/ubuntu2004](https://github.com/lavabit/robox
 - preCICE Rust bindings (Cargo)
 - preCICE FMI Runner (PIP)
 - preCICE Micro Manager (PIP)
-- OpenFOAM v2112 and the OpenFOAM-preCICE adapter (master)
+- OpenFOAM v2312 and the OpenFOAM-preCICE adapter (master)
 - deal.II 9.3 from the official backports and the deal.II-preCICE adapter (master)
 - CalculiX 2.19 from source and the CalculiX-preCICE adapter (master)
 - FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)

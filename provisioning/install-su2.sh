@@ -9,13 +9,13 @@ wget --quiet  https://github.com/su2code/SU2/archive/refs/tags/v7.5.1.tar.gz
 tar -xzf v7.5.1.tar.gz
 rm -fv v7.5.1.tar.gz
 
-# Add SU2 to PATH and apply.
+# Add SU2 and the SU2 adapter to PATH and apply.
 # We first export to a separate script, so that we can load it here (non-interactive shell).
 {
     echo "export SU2_HOME=\"\${HOME}/SU2-7.5.1\""
-    echo "export SU2_RUN=\"\${SU2_HOME}/SU2_CFD/bin\""
-    echo "export PATH=\"\${SU2_RUN}:\${PATH}\""
-    echo "export PYTHONPATH=\"\${SU2_RUN}:\${PYTHONPATH}\""
+    echo "export SU2_RUN=\"\${SU2_HOME}/SU2_CFD\""
+    echo "export PATH=\"\${SU2_RUN}/bin/:\${HOME}/su2-adapter/run/:\${PATH}\""
+    echo "export PYTHONPATH=\"\${SU2_RUN}/bin/:\${PYTHONPATH}\""
 } >> ~/.su2-bashrc
 
 echo ". \${HOME}/.su2-bashrc" >> ~/.bashrc

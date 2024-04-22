@@ -4,7 +4,7 @@ set -ex
 # Make a folder to collect all DUNE-related code
 # The installdumux.py script assumes a dumux/ directory, and we
 # reuse the same installation, to reduce space and confusion.
-mkdir -p dumux && cd dumux
+mkdir -p dune-dumux && cd dune-dumux
 
 # Modules used both by DUNE and DuMuX
 # While the installdumux.py script clones these as well,
@@ -89,13 +89,13 @@ fi
 )
 
 # Build all the DUNE and DUNE-preCICE related modules
-DUNE_CONTROL_PATH=~/dumux ./dune-common/bin/dunecontrol all
+DUNE_CONTROL_PATH=~/dune-dumux ./dune-common/bin/dunecontrol all
 
 # Set the DUNE_CONTROL_PATH (DUNE recursively finds modules in this directory)
-echo "export DUNE_CONTROL_PATH=\"\${HOME}/dumux\"" >> ~/.bashrc
+echo "export DUNE_CONTROL_PATH=\"\${HOME}/dune-dumux\"" >> ~/.bashrc
 
 # Copy the built example code to the tutorials
-cp ~/dumux/dune-adapter/dune-precice-howto/build-cmake/examples/dune-perpendicular-flap ~/tutorials/perpendicular-flap/solid-dune
+cp ~/dune-dumux/dune-adapter/dune-precice-howto/build-cmake/examples/dune-perpendicular-flap ~/tutorials/perpendicular-flap/solid-dune
 
 # We are done with DUNE, let's do back home
 cd ~

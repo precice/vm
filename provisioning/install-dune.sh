@@ -1,58 +1,59 @@
 #!/usr/bin/env bash
 set -ex
 
-# Make a folder to collect all DUNE-related code (-p to allow re-provisioning)
-mkdir -p dune && cd dune
+# # Make a folder to collect all DUNE-related code (-p to allow re-provisioning)
+# mkdir -p dune-dumux && cd dune-dumux
 
-# Get required DUNE modules
-if [ ! -d "dune-common/" ]; then
-    git clone --branch v2.8.0 --depth=1 https://gitlab.dune-project.org/core/dune-common.git
+# Get dumux installation script (fixed version, because master might fail)
+if [ ! -f "installdumux.py" ]; then
+    wget https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/3.8.0/bin/installdumux.py
 fi
 
-if [ ! -d "dune-istl/" ]; then
-    git clone --branch v2.8.0 --depth=1 https://gitlab.dune-project.org/core/dune-istl.git
+# Install dumux and navigate into the respective directory
+python3 installdumux.py
+cd dumux
+
+# Get the DuMuX-preCICE adapter
+if [ ! -d "dumux-adapter" ]; then
+    git clone  --depth 1 --branch v2.0.0 https://github.com/precice/dumux-adapter.git
 fi
 
-if [ ! -d "dune-localfunctions/" ]; then
-    git clone --branch v2.8.0 --depth=1 https://gitlab.dune-project.org/core/dune-localfunctions.git
-fi
+# Build the DuMuX-preCICE adapter
+./dune-common/bin/dunecontrol --only=dumux-precice all
 
-if [ ! -d "dune-grid/" ]; then
-    git clone --branch v2.8.0 --depth=1 https://gitlab.dune-project.org/core/dune-grid.git
-fi
-
-if [ ! -d "dune-geometry/" ]; then
-    git clone --branch v2.8.0 --depth=1 https://gitlab.dune-project.org/core/dune-geometry.git
+# Get additional DUNE modules required for the plain DUNE adapter
+if [ ! -d "dune-foamgrid/" ]; then
+    # The missing v in the tag in this module originates from the project itself
+    git clone --depth 1 --branch 2.9.1 https://gitlab.dune-project.org/extensions/dune-foamgrid.git
 fi
 
 if [ ! -d "dune-functions/" ]; then
-    git clone --branch v2.8.0 --depth=1 https://gitlab.dune-project.org/staging/dune-functions.git
-fi
-
-if [ ! -d "dune-uggrid/" ]; then
-    git clone --branch v2.8.0 --depth=1 https://gitlab.dune-project.org/staging/dune-uggrid.git
+    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/staging/dune-functions.git
 fi
 
 if [ ! -d "dune-typetree/" ]; then
-    git clone --branch v2.8.0 --depth=1 https://gitlab.dune-project.org/staging/dune-typetree.git
+    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/staging/dune-typetree.git
 fi
 
-if [ ! -d "dune-foamgrid/" ]; then
-    git clone --branch releases/2.8 --depth=1 https://gitlab.dune-project.org/extensions/dune-foamgrid.git
+if [ ! -d "dune-uggrid/" ]; then
+    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/staging/dune-uggrid.git
 fi
 
-# Get the dune-elastodynamics module (solid solver)
+# Build all the additional DUNE modules
+DUNE_CONTROL_PATH=~/dumux ./dune-common/bin/dunecontrol all
+
+# Get the dune-elastodynamics module (solid solver for the plain dune adapter)
 if [ ! -d "dune-elastodynamics/" ]; then
-    git clone --branch master --depth=1 https://github.com/maxfirmbach/dune-elastodynamics.git
+    git clone --depth 1 --branch master https://github.com/maxfirmbach/dune-elastodynamics.git
 fi
 (
     cd dune-elastodynamics
     git pull
 )
 
-# Get the DUNE-preCICE adapter
+# Get the plain DUNE-preCICE adapter
 if [ ! -d "dune-adapter/" ]; then
-    git clone --branch main --depth=1 https://github.com/precice/dune-adapter.git
+    git clone --branch main --depth 1 https://github.com/precice/dune-adapter.git
 fi
 (
     cd dune-adapter/dune-precice
@@ -60,13 +61,13 @@ fi
 )
 
 # Build all the DUNE and DUNE-preCICE related modules
-DUNE_CONTROL_PATH=~/dune ./dune-common/bin/dunecontrol all
+DUNE_CONTROL_PATH=~/dumux ./dune-common/bin/dunecontrol all
 
-# Set the DUNE_CONTROL_PATH (DUNE recursively finds modules in this directory)
-echo "export DUNE_CONTROL_PATH=\"\${HOME}/dune\"" >> ~/.bashrc
+# # Set the DUNE_CONTROL_PATH (DUNE recursively finds modules in this directory)
+# echo "export DUNE_CONTROL_PATH=\"\${HOME}/dune\"" >> ~/.bashrc
 
-# Copy the built example code to the tutorials
-cp ~/dune/dune-adapter/dune-precice-howto/build-cmake/examples/dune-perpendicular-flap ~/tutorials/perpendicular-flap/solid-dune
+# # Copy the built example code to the tutorials
+# cp ~/dune/dune-adapter/dune-precice-howto/build-cmake/examples/dune-perpendicular-flap ~/tutorials/perpendicular-flap/solid-dune
 
 # We are done with DUNE, let's do back home
 cd ~

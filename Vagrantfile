@@ -47,18 +47,18 @@ Vagrant.configure("2") do |config|
 
   # Install solvers, adapters, and related tools
   config.vm.provision "shell", path: "provisioning/install-config-visualizer.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-openfoam.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-calculix.sh", privileged: false
+  # config.vm.provision "shell", path: "provisioning/install-openfoam.sh", privileged: false
+  # config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
+  # config.vm.provision "shell", path: "provisioning/install-calculix.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-fenics.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-fmiprecice.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-micro-manager.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
+  # config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
+  # config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-julia-bindings.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
+  # config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
+  # config.vm.provision "shell", path: "provisioning/install-julia-bindings.sh", privileged: false
+  # config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
 
   # Post-installation steps
   config.vm.provision "shell", path: "provisioning/post-install.sh", privileged: false

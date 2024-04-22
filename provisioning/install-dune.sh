@@ -68,7 +68,7 @@ if [ ! -d "dune-uggrid/" ]; then
 fi
 
 # Build all the additional DUNE modules
-DUNE_CONTROL_PATH=~/dumux ./dune-common/bin/dunecontrol all
+DUNE_CONTROL_PATH=~/dune-dumux ./dune-common/bin/dunecontrol all
 
 # Get the dune-elastodynamics module (solid solver for the plain dune adapter)
 if [ ! -d "dune-elastodynamics/" ]; then

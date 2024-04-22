@@ -35,12 +35,15 @@ if [ ! -d "dune-functions/" ]; then
     git clone --branch v2.9.1 --depth=1 https://gitlab.dune-project.org/staging/dune-functions.git
 fi
 
-# Install dumux and navigate into the respective directory
-# We get the installdumux.py for a fixed version, because master might fail.
-cd ..
-wget https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/3.8.0/bin/installdumux.py
-python3 installdumux.py
-cd dumux
+if [ ! -d "dune-typetree/" ]; then
+    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/staging/dune-typetree.git
+fi
+
+if [ ! -d "dumux/" ]; then
+    git clone --depth 1 --branch releases/3.8 https://git.iws.uni-stuttgart.de/dumux-repositories/dumux.git
+fi
+
+./dune-common/bin/dunecontrol --opts=dumux/cmake.opts all
 
 # Get the DuMuX-preCICE adapter
 if [ ! -d "dumux-adapter" ]; then
@@ -58,10 +61,6 @@ fi
 
 if [ ! -d "dune-functions/" ]; then
     git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/staging/dune-functions.git
-fi
-
-if [ ! -d "dune-typetree/" ]; then
-    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/staging/dune-typetree.git
 fi
 
 if [ ! -d "dune-uggrid/" ]; then

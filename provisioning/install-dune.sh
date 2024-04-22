@@ -1,15 +1,44 @@
 #!/usr/bin/env bash
 set -ex
 
-# # Make a folder to collect all DUNE-related code (-p to allow re-provisioning)
-# mkdir -p dune-dumux && cd dune-dumux
+# Make a folder to collect all DUNE-related code
+# The installdumux.py script assumes a dumux/ directory, and we
+# reuse the same installation, to reduce space and confusion.
+mkdir -p dumux && cd dumux
 
-# Get dumux installation script (fixed version, because master might fail)
-if [ ! -f "installdumux.py" ]; then
-    wget https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/3.8.0/bin/installdumux.py
+# Modules used both by DUNE and DuMuX
+# While the installdumux.py script clones these as well,
+# we explicitly clone them to control the versions.
+# For example, the dune-grid (release/2.9) version cloned by installdumux.py
+# does not work with DUNE
+if [ ! -d "dune-common/" ]; then
+    git clone --branch v2.9.1 --depth=1 https://gitlab.dune-project.org/core/dune-common.git
+fi
+
+if [ ! -d "dune-istl/" ]; then
+    git clone --branch v2.9.1 --depth=1 https://gitlab.dune-project.org/core/dune-istl.git
+fi
+
+if [ ! -d "dune-localfunctions/" ]; then
+    git clone --branch v2.9.1 --depth=1 https://gitlab.dune-project.org/core/dune-localfunctions.git
+fi
+
+if [ ! -d "dune-grid/" ]; then
+    git clone --branch v2.9.1 --depth=1 https://gitlab.dune-project.org/core/dune-grid.git
+fi
+
+if [ ! -d "dune-geometry/" ]; then
+    git clone --branch v2.9.1 --depth=1 https://gitlab.dune-project.org/core/dune-geometry.git
+fi
+
+if [ ! -d "dune-functions/" ]; then
+    git clone --branch v2.9.1 --depth=1 https://gitlab.dune-project.org/staging/dune-functions.git
 fi
 
 # Install dumux and navigate into the respective directory
+# We get the installdumux.py for a fixed version, because master might fail.
+cd ..
+wget https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/3.8.0/bin/installdumux.py
 python3 installdumux.py
 cd dumux
 
@@ -63,11 +92,11 @@ fi
 # Build all the DUNE and DUNE-preCICE related modules
 DUNE_CONTROL_PATH=~/dumux ./dune-common/bin/dunecontrol all
 
-# # Set the DUNE_CONTROL_PATH (DUNE recursively finds modules in this directory)
-# echo "export DUNE_CONTROL_PATH=\"\${HOME}/dune\"" >> ~/.bashrc
+# Set the DUNE_CONTROL_PATH (DUNE recursively finds modules in this directory)
+echo "export DUNE_CONTROL_PATH=\"\${HOME}/dumux\"" >> ~/.bashrc
 
-# # Copy the built example code to the tutorials
-# cp ~/dune/dune-adapter/dune-precice-howto/build-cmake/examples/dune-perpendicular-flap ~/tutorials/perpendicular-flap/solid-dune
+# Copy the built example code to the tutorials
+cp ~/dumux/dune-adapter/dune-precice-howto/build-cmake/examples/dune-perpendicular-flap ~/tutorials/perpendicular-flap/solid-dune
 
 # We are done with DUNE, let's do back home
 cd ~

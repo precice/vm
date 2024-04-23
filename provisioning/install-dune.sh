@@ -4,7 +4,7 @@ set -ex
 # Make a folder to collect all DUNE-related code
 mkdir -p dune-dumux && cd dune-dumux
 
-# Modules used by DUNE and DuMuX
+# Modules used by DUNE and DuMux
 # While the installdumux.py script clones these as well,
 # we explicitly clone them to control the versions.
 if [ ! -d "dune-common/" ]; then
@@ -64,7 +64,7 @@ fi
 
 ./dune-common/bin/dunecontrol all
 
-# Get DuMuX and the DuMuX-preCICE adapter
+# Get DuMux and the DuMux-preCICE adapter
 if [ ! -d "dumux/" ]; then
     git clone --depth 1 --branch releases/3.8 https://git.iws.uni-stuttgart.de/dumux-repositories/dumux.git
 fi
@@ -77,7 +77,7 @@ if [ ! -d "dumux-adapter/" ]; then
     git clone  --depth 1 --branch v2.0.0 https://github.com/precice/dumux-adapter.git
 fi
 
-# Build the DuMuX-preCICE adapter
+# Build the DuMux-preCICE adapter
 ./dune-common/bin/dunecontrol --only=dumux-precice all
 
 # Set the DUNE_CONTROL_PATH (DUNE recursively finds modules in this directory)

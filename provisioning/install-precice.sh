@@ -62,7 +62,7 @@ pip3 install --upgrade pip
 pip3 install --user pyprecice
 
 # Additional python packages
-pip3 install --user pandas matplotlib # Needed for the post-processing scripts
+pip3 install --user pandas matplotlib polars # Needed for the post-processing scripts
 
 # Get the Python solverdummy into the examples
 if [ ! -d "python-bindings/" ]; then

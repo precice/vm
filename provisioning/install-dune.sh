@@ -55,7 +55,7 @@ fi
 
 # Get the plain DUNE-preCICE adapter
 if [ ! -d "dune-adapter/" ]; then
-    git clone --branch main --depth 1 https://github.com/precice/dune-adapter.git
+    git clone --depth 1 --branch main https://github.com/precice/dune-adapter.git
 fi
 (
     cd dune-adapter/dune-precice

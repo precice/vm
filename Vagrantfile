@@ -5,9 +5,9 @@ Vagrant.configure("2") do |config|
   # The generic/ images support virtualbox as well as libvirt and hyperv.
   # This allows us to create performance oriented images for Linux (libvirt) and Windows (hyperv).
   # However, it does not build: https://github.com/precice/vm/issues/83
-  config.vm.box = "generic/ubuntu2004"
-  # config.vm.box = "bento/ubuntu-20.04"
-  # config.vm.box_version = "202401.31.0"
+  # config.vm.box = "generic/ubuntu2004"
+  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.box_version = "v202309.09.0"
 
   # We don't want the box to automatically update every time it starts.
   # We can instead handle updates internally, without destroying the machine.

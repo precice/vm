@@ -27,14 +27,6 @@ if [ ! -d "dune-geometry/" ]; then
     git clone --branch v2.9.1 --depth=1 https://gitlab.dune-project.org/core/dune-geometry.git
 fi
 
-if [ ! -d "dune-functions/" ]; then
-    git clone --branch v2.9.1 --depth=1 https://gitlab.dune-project.org/staging/dune-functions.git
-fi
-
-if [ ! -d "dune-typetree/" ]; then
-    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/staging/dune-typetree.git
-fi
-
 if [ ! -d "dune-foamgrid/" ]; then
     # The missing v in the tag in this module originates from the project itself
     git clone --depth 1 --branch 2.9.1 https://gitlab.dune-project.org/extensions/dune-foamgrid.git
@@ -42,6 +34,10 @@ fi
 
 if [ ! -d "dune-functions/" ]; then
     git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/staging/dune-functions.git
+fi
+
+if [ ! -d "dune-typetree/" ]; then
+    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/staging/dune-typetree.git
 fi
 
 if [ ! -d "dune-uggrid/" ]; then

@@ -1,12 +1,12 @@
 # preCICE config visualizer
 function preciceToPNG(){
-  precice-config-visualizer "${1:-precice-config.xml}" | dot -Tpng > precice-config.png
+  precice-config-visualizer -o precice-config.png "${1:-precice-config.xml}"
 }
 
 function preciceToPDF(){
-  precice-config-visualizer "${1:-precice-config.xml}" | dot -Tpdf > precice-config.pdf
+  precice-config-visualizer -o precice-config.pdf "${1:-precice-config.xml}"
 }
 
 function preciceToSVG(){
-  precice-config-visualizer "${1:-precice-config.xml}" | dot -Tsvg > precice-config.svg
+  precice-config-visualizer -o precice-config.svg "${1:-precice-config.xml}"
 }

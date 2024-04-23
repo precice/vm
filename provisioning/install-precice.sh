@@ -14,7 +14,7 @@ fi
     cd precice
     git pull
     mkdir -p build && cd build/
-    cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TESTING=OFF -Wno-dev ..
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DPRECICE_RELEASE_WITH_DEBUG_LOG=ON -DBUILD_TESTING=OFF -Wno-dev ..
     make -j "$(nproc)"
     rm -fv ./*.deb && make package
     sudo apt-get install -y ./libprecice*_*.deb

@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 set -ex
 
-# Setup swak4Foam
-(
-    cd "${HOME}/OpenFOAM/vagrant-v2206/platforms/linux64GccDPInt32Opt/"
-    tar -xzvf swak4Foam.tar.gz
-)
-
 # Remove fenics-ufl package
 # Workaround for https://github.com/precice/vm/issues/4
-pip3 uninstall -y fenics-ufl
+# pip3 uninstall -y fenics-ufl
 
 # Create a link to the default shared folder
 ln -sf /vagrant/ ~/Desktop/shared

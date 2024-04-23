@@ -4,7 +4,9 @@
 Vagrant.configure("2") do |config|
   # The generic/ images support virtualbox as well as libvirt and hyperv.
   # This allows us to create performance oriented images for Linux (libvirt) and Windows (hyperv).
-  config.vm.box = "generic/ubuntu2004"
+  # However, it does not build: https://github.com/precice/vm/issues/83
+  # config.vm.box = "generic/ubuntu2004"
+  config.vm.box = "bento/ubuntu-20.04"
 
   # We don't want the box to automatically update every time it starts.
   # We can instead handle updates internally, without destroying the machine.
@@ -46,11 +48,11 @@ Vagrant.configure("2") do |config|
   # Install solvers, adapters, and related tools
   config.vm.provision "shell", path: "provisioning/install-config-visualizer.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh", privileged: false
-  config.vm.provision "file", source: "provisioning/prebuilt/swak4Foam/swak4Foam.tar.gz", destination: "~/OpenFOAM/vagrant-v2206/platforms/linux64GccDPInt32Opt/swak4Foam.tar.gz"
   config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-calculix.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-fenics.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-nutils.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-fmiprecice.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-micro-manager.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false

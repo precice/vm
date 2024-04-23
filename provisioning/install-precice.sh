@@ -14,10 +14,10 @@ fi
     cd precice
     git pull
     mkdir -p build && cd build/
-    cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=OFF -Wno-dev ..
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DPRECICE_RELEASE_WITH_DEBUG_LOG=ON -DBUILD_TESTING=OFF -Wno-dev ..
     make -j "$(nproc)"
     rm -fv ./*.deb && make package
-    sudo apt-get install -y ./libprecice2_*.deb
+    sudo apt-get install -y ./libprecice*_*.deb
     # Remove generated packages to save space (approx. 70MB)
     rm -rfv ./*.deb ./*.tar.gz _CPack_Packages
 )
@@ -41,11 +41,13 @@ if [ ! -d "tutorials/" ]; then
     ln -sf ~/tutorials ~/Desktop/
 fi
 (
-    cd tutorials/elastic-tube-1d/fluid-cpp/ && mkdir build && cd build && cmake .. && make && cd ../..
-    cd solid-cpp/ && mkdir build && cd build && cmake .. && make
+    cd tutorials/quickstart/solid-cpp/ && cmake . && make
 )
 (
-    cd tutorials/quickstart/solid-cpp/ && cmake . && make
+    cd tutorials/elastic-tube-1d/solid-rust/ && mkdir -p .cargo && cargo vendor > .cargo/config.toml
+)
+(
+    cd tutorials/elastic-tube-1d/fluid-rust/ && mkdir -p .cargo && cargo vendor > .cargo/config.toml
 )
 (
     cd tutorials/heat-exchanger && ./download-meshes.sh
@@ -60,20 +62,7 @@ pip3 install --upgrade pip
 pip3 install --user pyprecice
 
 # Additional python packages
-pip3 install --user pandas # Needed for the post-processing script of the oscillator tutorial
-
-# Temporary workaround for https://github.com/precice/vm/issues/61
-# Remove as soon as https://github.com/precice/tutorials/issues/217 gets resolved
-sudo apt-get install -y python3.8-venv
-(
-    cd tutorials/perpendicular-flap/fluid-nutils/
-    python3 -m venv nutils6-env
-    # shellcheck source=/dev/null
-    source nutils6-env/bin/activate
-    pip3 install nutils==6.3 pyprecice
-    sed -i "s/python3/nutils6-env\/bin\/python3/g" ./run.sh
-    deactivate
-)
+pip3 install --user pandas matplotlib polars # Needed for the post-processing scripts
 
 # Get the Python solverdummy into the examples
 if [ ! -d "python-bindings/" ]; then

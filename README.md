@@ -25,7 +25,7 @@ You can afterwards also see and manage the produced VM in VirtualBox.
 A few things you may need:
 
 - The username and password are `vagrant`/`vagrant`
-- The keyboard layout is US English (QWERTY). You can change this in [`install-basics.sh`](./install-basics.sh) or through the keyboard setting shortcut on `~/Desktop`.
+- The keyboard layout is US English (QWERTY). You can change this in [`install-basics.sh`](./provisioning/install-basics.sh) or through the keyboard setting shortcut on `~/Desktop`.
 - Find scripts to install additional software on `~/Desktop/shared`.
 
 ### What else can I do?
@@ -40,25 +40,29 @@ A few things you may need:
 
 ## What is included?
 
-This box is based on the [generic/ubuntu2004](https://github.com/lavabit/robox/tree/master/scripts/ubuntu2004) base box and installs:
+This box is based on the ~~[generic/ubuntu2004](https://github.com/lavabit/robox/tree/master/scripts/ubuntu2004)~~ [bento/ubuntu-20.04](https://github.com/chef/bento) base box and installs:
 
 - Xubuntu-core (Xfce desktop environment) and related tools
 - VirtualBox guest additions
 - Terminator (a nice split-window terminal emulator, find it in `Applications > System`)
 - Git, CMake, ccmake
 - Editors: nano, vim, gedit
-- preCICE latest for the master branch
-- preCICE config visualizer (master)
+- Diff viewer: meld
+- preCICE latest from the master branch (built in release-with-debug-info mode)
+- preCICE config visualizer with its GUI (master)
 - preCICE Python bindings (PIP)
 - preCICE Julia bindings (Pkg)
-- OpenFOAM v2112 and the OpenFOAM-preCICE adapter (master)
+- preCICE Rust bindings (Cargo)
+- preCICE FMI Runner (PIP)
+- preCICE Micro Manager (PIP)
+- OpenFOAM v2312 and the OpenFOAM-preCICE adapter (master)
 - deal.II 9.3 from the official backports and the deal.II-preCICE adapter (master)
-- CalculiX 2.19 from source and the CalculiX-preCICE adapter (master)
+- CalculiX 2.20 from source and the CalculiX-preCICE adapter (master)
 - FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
-- Nutils latest from PIP
-- SU2 6.0.0 and the SU2-preCICE adapter (master)
+- SU2 7.5.1 and the SU2-preCICE adapter (master)
 - code_aster 14.6 and the code_aster-preCICE adapter (master)
-- DUNE 2.8 and the experimental DUNE-preCICE adapter (master)
+- DUNE 2.9.1 and the experimental DUNE-preCICE adapter (main)
+- DuMuX 3.8 and the DuMuX-preCICE adapter (v2.0.0)
 - ASTE (master)
 - Paraview from APT
 - Gnuplot
@@ -116,6 +120,11 @@ vagrant box remove test-box
 
 If you require a more responsive experience, lower overhead, or exotic features such as GPU pass through, then the `libvirt` vagrant box is for you.
 This allows you to run the vagrant box via libvirt and QEMU as a Kernerl Virtual Machine (KVM).
+
+> Note
+> The libvirt variant does not work with the `bento/ubuntu-20.04` base image, but also the VirtualBox variant does not at the moment work with the `generic/ubuntu2004` image.
+> Change the base image in the beginning of the Vagrantfile if you need this feature.
+> See https://github.com/precice/vm/issues/83 for details.
 
 To use this box, first install the vagrant plugin `vagrant-libvirt` following the [official installation instructions](https://github.com/vagrant-libvirt/vagrant-libvirt#installation).
 Then you follow the normal usage instructions above, but you need to tell vagrant to use the `libvirt` box by passing one additional option:

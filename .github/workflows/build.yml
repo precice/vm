@@ -42,7 +42,7 @@ jobs:
 
     - name: Run vagrant up
       run: |
-        vagrant up --provider=${{ matrix.provider }}
+        VAGRANT_DISABLE_VBOXSYMLINKCREATE=1 vagrant up --provider=${{ matrix.provider }}
 
     - name: Package Vagrant box
       run: vagrant package --base "preCICE-VM" --output preCICE.box

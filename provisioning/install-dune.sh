@@ -77,7 +77,7 @@ if [ ! -d "dumux-adapter/" ]; then
 fi
 
 # Build the DuMux-preCICE adapter
-./dune-common/bin/dunecontrol --only=dumux-precice all
+CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_DISABLE_FIND_PACKAGE_Kokkos=TRUE" ./dune-common/bin/dunecontrol --only=dumux-precice all
 
 # Set the DUNE_CONTROL_PATH (DUNE recursively finds modules in this directory)
 echo "export DUNE_CONTROL_PATH=\"\${HOME}/dune-dumux\"" >> ~/.bashrc

@@ -70,8 +70,7 @@ if [ ! -d "dumux/" ]; then
 fi
 
 # Build DuMux
-./dune-common/bin/dunecontrol --only=dumux cmake -DCMAKE_DISABLE_FIND_PACKAGE_Kokkos=TRUE
-./dune-common/bin/dunecontrol --only=dumux make
+CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_DISABLE_FIND_PACKAGE_Kokkos=TRUE" ./dune-common/bin/dunecontrol --only=dumux all
 
 if [ ! -d "dumux-adapter/" ]; then
     git clone  --depth 1 --branch v2.0.0 https://github.com/precice/dumux-adapter.git

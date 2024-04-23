@@ -8,23 +8,23 @@ mkdir -p dune-dumux && cd dune-dumux
 # While the installdumux.py script clones these as well,
 # we explicitly clone them to control the versions.
 if [ ! -d "dune-common/" ]; then
-    git clone --depth=1 --branch v2.9.1 https://gitlab.dune-project.org/core/dune-common.git
+    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/core/dune-common.git
 fi
 
 if [ ! -d "dune-istl/" ]; then
-    git clone --depth=1 --branch v2.9.1 https://gitlab.dune-project.org/core/dune-istl.git
+    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/core/dune-istl.git
 fi
 
 if [ ! -d "dune-localfunctions/" ]; then
-    git clone --depth=1 --branch v2.9.1 https://gitlab.dune-project.org/core/dune-localfunctions.git
+    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/core/dune-localfunctions.git
 fi
 
 if [ ! -d "dune-grid/" ]; then
-    git clone --depth=1 --branch v2.9.1 https://gitlab.dune-project.org/core/dune-grid.git
+    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/core/dune-grid.git
 fi
 
 if [ ! -d "dune-geometry/" ]; then
-    git clone --depth=1 --branch v2.9.1 https://gitlab.dune-project.org/core/dune-geometry.git
+    git clone --depth 1 --branch v2.9.1 https://gitlab.dune-project.org/core/dune-geometry.git
 fi
 
 if [ ! -d "dune-foamgrid/" ]; then

@@ -61,7 +61,8 @@ This box is based on the ~~[generic/ubuntu2004](https://github.com/lavabit/robox
 - FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
 - SU2 7.5.1 and the SU2-preCICE adapter (master)
 - code_aster 14.6 and the code_aster-preCICE adapter (master)
-- DUNE 2.8 and the experimental DUNE-preCICE adapter (master)
+- DUNE 2.9.1 and the experimental DUNE-preCICE adapter (main)
+- DuMuX 3.8 and the DuMuX-preCICE adapter (v2.0.0)
 - ASTE (master)
 - Paraview from APT
 - Gnuplot

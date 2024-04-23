@@ -70,14 +70,14 @@ if [ ! -d "dumux/" ]; then
 fi
 
 # Build DuMux
-./dune-common/bin/dunecontrol --opts=dumux/cmake.opts --module=dumux -DCMAKE_DISABLE_FIND_PACKAGE_Kokkos=TRUE all
+./dune-common/bin/dunecontrol --only=dumux -DCMAKE_DISABLE_FIND_PACKAGE_Kokkos=TRUE all
 
 if [ ! -d "dumux-adapter/" ]; then
     git clone  --depth 1 --branch v2.0.0 https://github.com/precice/dumux-adapter.git
 fi
 
 # Build the DuMuX-preCICE adapter
-./dune-common/bin/dunecontrol --opts=dumux/cmake.opts --module=dumux-precice all
+./dune-common/bin/dunecontrol --only=dumux-precice all
 
 # Set the DUNE_CONTROL_PATH (DUNE recursively finds modules in this directory)
 echo "export DUNE_CONTROL_PATH=\"\${HOME}/dune-dumux\"" >> ~/.bashrc

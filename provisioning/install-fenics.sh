@@ -8,4 +8,8 @@ sudo apt-get -y update
 sudo apt-get -y install --no-install-recommends fenics
 
 # Install the FEniCS-preCICE adapter from PIP
-pip3 install --user fenicsprecice
+python -m venv ~/python-venvs/fenicsprecice
+# shellcheck disable=SC1090 # We don't need to lint this external script
+source ~/python-venvs/fenicsprecice/bin/activate
+python -m pip install fenicsprecice
+deactivate

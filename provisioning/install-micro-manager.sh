@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 set -ex
 
-pip install --user micro-manager-precice
+# Install the micro-manager (stand-alone application) from PyPI
+pipx install micro-manager-precice
+

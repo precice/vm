@@ -2,7 +2,11 @@
 set -ex
 
 # Install dependencies
-pip3 install --user mpi4py
+python -m venv ~/python-venvs/su2precice
+# shellcheck disable=SC1090 # We don't need to lint this external script
+source ~/python-venvs/su2precice/bin/activate
+python -m pip install mpi4py setuptools
+sudo apt-get -y install swig
 
 # Get SU2 7.5.1 from GitHub
 wget --quiet  https://github.com/su2code/SU2/archive/refs/tags/v7.5.1.tar.gz
@@ -35,9 +39,15 @@ fi
 # Configure and build the SU2 adapter
 (
     cd "${SU2_HOME}"
+    
+    # Add a previously implied header (compatibility with Ubuntu 24.04)
+    sed -i '1s/^/#include <cstdint>\n/' SU2_CFD/src/output/filewriter/CParaviewXMLFileWriter.cpp
+
     ./meson.py build -Denable-pywrapper=true --prefix="${SU2_RUN}" &&\
     ./ninja -C build install
 )
 
 # Remove the libSU2Core.a library to save space (approx. 500MB)
 rm -fv ~/SU2-7.5.1/SU2_CFD/obj/libSU2Core.a
+
+deactivate

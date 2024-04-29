@@ -4,7 +4,7 @@
 
 ## What does this do?
 
-Vagrant pulls an Ubuntu 20.04 "base box" and asks e.g. VirtualBox to start a virtual machine.
+Vagrant pulls an Ubuntu 24.04 "base box" and asks e.g. VirtualBox to start a virtual machine.
 It then installs basic tools (such as a desktop environment), a preCICE release,
 several solvers and adapters, as well as example and tutorial files.
 
@@ -40,7 +40,7 @@ A few things you may need:
 
 ## What is included?
 
-This box is based on the ~~[generic/ubuntu2004](https://github.com/lavabit/robox/tree/master/scripts/ubuntu2004)~~ [bento/ubuntu-20.04](https://github.com/chef/bento) base box and installs:
+This box is based on the [bento/ubuntu-24.04](https://github.com/chef/bento) base box and installs:
 
 - Xubuntu-core (Xfce desktop environment) and related tools
 - VirtualBox guest additions
@@ -58,9 +58,7 @@ This box is based on the ~~[generic/ubuntu2004](https://github.com/lavabit/robox
 - OpenFOAM v2312 and the OpenFOAM-preCICE adapter (master)
 - deal.II 9.3 from the official backports and the deal.II-preCICE adapter (master)
 - CalculiX 2.20 from source and the CalculiX-preCICE adapter (master)
-- FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
 - SU2 7.5.1 and the SU2-preCICE adapter (master)
-- code_aster 14.6 and the code_aster-preCICE adapter (master)
 - DUNE 2.9.1 and the experimental DUNE-preCICE adapter (main)
 - DuMuX 3.8 and the DuMuX-preCICE adapter (v2.0.0)
 - ASTE (master)
@@ -75,6 +73,11 @@ It then adds to the `/home/vagrant/`:
 The adapter repositories remain in `/home/vagrant/`.
 It also adds a few shortcuts on the Desktop (see `post-install.sh`).
 At the end, it cleans up all object files and the APT cache (see `cleanup.sh`).
+
+## What should be there but is currently not included?
+
+- code_aster 14.6 and the code_aster-preCICE adapter (master)
+- FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
 
 ## Troubleshooting
 

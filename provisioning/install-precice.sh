@@ -58,11 +58,17 @@ sudo apt-get -y install gnuplot # needed for watchpoint scripts of tutorials
 ### OPTIONAL - preCICE Python bindings and Python example
 # Get PIP and the preCICE Python bindings
 sudo apt-get install -y python3-pip
-pip3 install --upgrade pip
-pip3 install --user pyprecice
 
-# Additional python packages
-pip3 install --user pandas matplotlib polars # Needed for the post-processing scripts
+python -m venv ~/python-venvs/pyprecice
+# shellcheck disable=SC1090 # We don't need to lint this external script
+source ~/python-venvs/pyprecice/bin/activate
+
+python -m pip install pyprecice
+
+# Additional python packages -> Should go into tutorials venvs
+# pip3 install --user pandas matplotlib polars # Needed for the post-processing scripts
+
+deactivate
 
 # Get the Python solverdummy into the examples
 if [ ! -d "python-bindings/" ]; then

@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   # This allows us to create performance oriented images for Linux (libvirt) and Windows (hyperv).
   # However, it does not build: https://github.com/precice/vm/issues/83
   # config.vm.box = "generic/ubuntu2004"
-  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.box = "bento/ubuntu-24.04"
 
   # We don't want the box to automatically update every time it starts.
   # We can instead handle updates internally, without destroying the machine.
@@ -50,11 +50,13 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-calculix.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-fenics.sh", privileged: false
+  # FEniCS is not yet available for Ubuntu 24.04: https://launchpad.net/~fenics-packages/+archive/ubuntu/fenics
+  # config.vm.provision "shell", path: "provisioning/install-fenics.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-fmiprecice.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-micro-manager.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
+  # code_aster does not build on Ubuntu 22.04/24.04 due to multiple issues: https://github.com/precice/code_aster-adapter/issues/26
+  # config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-julia-bindings.sh", privileged: false

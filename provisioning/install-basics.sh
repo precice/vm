@@ -10,7 +10,7 @@ sudo apt-get update
 sudo apt-get upgrade -qy
 
 # Install the Xfce desktop environment and basic applications
-sudo apt-get install -y xubuntu-core^
+sudo apt-get install -y xubuntu-core
 sudo apt-get install -y thunar xfce4-terminal terminator bash-completion tree atril firefox firefox-locale-en baobab catfish
 sudo apt-get install -y python3-dev pipx python-is-python3 python3-venv
 
@@ -19,7 +19,7 @@ sudo apt-get install -y python3-dev pipx python-is-python3 python3-venv
 # echo "autologin-user=vagrant" | sudo tee --append /usr/share/lightdm/lightdm.conf.d/60-xubuntu.conf
 
 # Install the VirtualBox guest additions
-sudo apt-get install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+sudo apt-get install -y virtualbox-guest-utils virtualbox-guest-x11
 
 # Create Desktop
 mkdir -p ~/Desktop

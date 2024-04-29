@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -ex
 
-# Remove fenics-ufl package
-# Workaround for https://github.com/precice/vm/issues/4
-# pip3 uninstall -y fenics-ufl
-
 # Create a link to the default shared folder
 ln -sf /vagrant/ ~/Desktop/shared
 

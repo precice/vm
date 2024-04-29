@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -ex
 
-# Install deal.II from the deal.II 9.3.0 backports PPA
-sudo add-apt-repository ppa:ginggs/deal.ii-9.3.0-backports
 sudo apt-get update
 sudo apt-get install -y libdeal.ii-dev
 

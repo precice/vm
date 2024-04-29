@@ -3,6 +3,7 @@ set -ex
 
 # Install dependencies
 python -m venv ~/python-venvs/su2precice
+# shellcheck disable=SC1090 We don't need to lint this external script
 source ~/python-venvs/su2precice/bin/activate
 python -m pip install mpi4py setuptools
 sudo apt-get -y install swig

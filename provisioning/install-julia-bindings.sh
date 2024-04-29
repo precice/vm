@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 python -m venv ~/python-venvs/julia
+# shellcheck disable=SC1090 We don't need to lint this external script
 source ~/python-venvs/julia/bin/activate
 
 # install latest julia

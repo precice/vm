@@ -60,6 +60,7 @@ sudo apt-get -y install gnuplot # needed for watchpoint scripts of tutorials
 sudo apt-get install -y python3-pip
 
 python -m venv ~/python-venvs/pyprecice
+# shellcheck disable=SC1090 We don't need to lint this external script
 source ~/python-venvs/pyprecice/bin/activate
 
 python -m pip install pyprecice

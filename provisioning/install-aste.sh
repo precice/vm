@@ -4,9 +4,7 @@ set -ex
 # Install the C++ vtk library
 
 # The following packages have unmet dependencies:
-# python3-paraview : Conflicts: python3-vtk9 but 9.1.0+really9.1.0+dfsg2-7.1build3 is to be installed
-# sudo apt-get -y install libvtk9-dev
-
+sudo apt-get -y install libvtk9-dev libvtk9-qt-dev
 sudo apt-get -y install libmetis-dev
 
 python -m venv ~/python-venvs/aste

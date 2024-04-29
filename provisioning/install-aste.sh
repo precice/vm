@@ -10,7 +10,7 @@ set -ex
 sudo apt-get -y install libmetis-dev
 
 python -m venv ~/python-venvs/aste
-# shellcheck disable=SC1090 We don't need to lint this external script
+# shellcheck disable=SC1090 # We don't need to lint this external script
 source ~/python-venvs/aste/bin/activate
 
 python3 -m pip install sympy scipy jinja2

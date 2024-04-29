@@ -16,7 +16,7 @@ fi
 (
     cd calculix-adapter
     git pull
-    make -j "$(nproc)"
+    ADDITIONAL_FFLAGS=-fallow-argument-mismatch  make -j "$(nproc)"
 )
 
 # Add the CalculiX adapter to PATH

@@ -19,6 +19,6 @@ echo 'export PATH="${HOME}/.local/bin:${PATH}"' >> ~/.bashrc
 # Add the GUI in the apps menu
 mkdir -p ~/.local/share/applications ~/.local/share/icons
 
-CV_LOC_SHARE=~/.local/pipx/venvs/precice-config-visualizer-gui==${PRECICE_CONFIG_VISUALIZER_GUI_VERSION}/share
+CV_LOC_SHARE=~/.local/share/pipx/venvs/precice-config-visualizer-gui/share
 cp $CV_LOC_SHARE/applications/org.precice.config_visualizer.desktop ~/.local/share/applications/
 cp $CV_LOC_SHARE/icons/hicolor/scalable/apps/org.precice.config_visualizer.svg ~/.local/share/icons/

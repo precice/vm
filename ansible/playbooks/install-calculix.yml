@@ -1,0 +1,65 @@
+---
+- name: Install CalculiX and the preCICE adapter
+  hosts: all
+  become: true
+  vars:
+    user_home: "{{ lookup('env', 'HOME') }}"
+    calculix_url: "http://www.dhondt.de/ccx_2.20.src.tar.bz2"
+    calculix_tarball: "ccx_2.20.src.tar.bz2"
+    calculix_dir: "ccx_2.20"
+    adapter_repo_url: "https://github.com/precice/calculix-adapter.git"
+    adapter_path: "{{ user_home }}/calculix-adapter"
+
+  tasks:
+    - name: Install dependencies for CalculiX
+      apt:
+        name:
+          - libarpack2-dev
+          - libspooles-dev
+          - libyaml-cpp-dev
+        state: present
+        update_cache: yes
+
+    - name: Download CalculiX source tarball
+      become: false
+      get_url:
+        url: "{{ calculix_url }}"
+        dest: "{{ user_home }}/{{ calculix_tarball }}"
+        mode: '0644'
+
+    - name: Extract CalculiX source
+      become: false
+      unarchive:
+        src: "{{ user_home }}/{{ calculix_tarball }}"
+        dest: "{{ user_home }}"
+        remote_src: true
+
+    - name: Remove CalculiX tarball
+      become: false
+      file:
+        path: "{{ user_home }}/{{ calculix_tarball }}"
+        state: absent
+
+    - name: Clone CalculiX adapter repository
+      become: false
+      git:
+        repo: "{{ adapter_repo_url }}"
+        dest: "{{ adapter_path }}"
+        version: master
+        depth: 1
+        update: yes
+
+    - name: Build CalculiX adapter
+      become: false
+      shell: |
+        make -j $(nproc) ADDITIONAL_FFLAGS=-fallow-argument-mismatch
+      args:
+        chdir: "{{ adapter_path }}"
+        executable: /bin/bash
+
+    - name: Add CalculiX adapter to PATH in .bashrc
+      become: false
+      lineinfile:
+        path: "{{ user_home }}/.bashrc"
+        line: 'export PATH="{{ user_home }}/calculix-adapter/bin:$PATH"'
+        insertafter: EOF

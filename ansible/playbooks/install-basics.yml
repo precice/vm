@@ -1,0 +1,17 @@
+# install-basics.yml
+- name: Install basic packages
+  hosts: all
+  become: true
+  tasks:
+    - name: Update apt
+      apt:
+        update_cache: yes
+
+    - name: Install essential packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - build-essential
+        - cmake
+        - git

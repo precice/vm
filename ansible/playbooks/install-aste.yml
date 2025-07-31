@@ -1,0 +1,70 @@
+---
+- name: Install aste with dependencies
+  hosts: localhost
+  connection: local
+  become: true
+  vars:
+    user_home: "{{ lookup('env', 'HOME') }}"
+    aste_repo_url: "https://github.com/precice/aste.git"
+    aste_path: "{{ user_home }}/aste"
+    aste_venv_path: "{{ user_home }}/python-venvs/aste"
+
+  tasks:
+    - name: Install system dependencies for aste
+      apt:
+        name:
+          - libvtk9-dev
+          - libvtk9-qt-dev
+          - libmetis-dev
+          - python3-venv
+          - python3-pip
+        state: present
+        update_cache: yes
+
+    - name: Create Python virtual environment for aste
+      become: false
+      command: python3 -m venv {{ aste_venv_path }}
+      args:
+        creates: "{{ aste_venv_path }}/bin/activate"
+
+    - name: Install Python packages in aste venv
+      become: false
+      shell: |
+        source {{ aste_venv_path }}/bin/activate
+        pip install --upgrade pip
+        pip install sympy scipy jinja2
+      args:
+        executable: /bin/bash
+
+    - name: Clone aste repository
+      become: false
+      git:
+        repo: "{{ aste_repo_url }}"
+        dest: "{{ aste_path }}"
+        version: master
+        depth: 1
+        update: yes
+
+    - name: Build aste project
+      become: false
+      shell: |
+        mkdir -p build && cd build
+        cmake ..
+        make -j $(nproc)
+      args:
+        chdir: "{{ aste_path }}"
+        executable: /bin/bash
+
+    - name: Add aste build path to PATH in .bashrc
+      become: false
+      lineinfile:
+        path: "{{ user_home }}/.bashrc"
+        line: 'export PATH="${HOME}/aste/build:${PATH}"'
+        insertafter: EOF
+
+    - name: Add aste build path to LD_LIBRARY_PATH in .bashrc
+      become: false
+      lineinfile:
+        path: "{{ user_home }}/.bashrc"
+        line: 'export LD_LIBRARY_PATH="${HOME}/aste/build:${LD_LIBRARY_PATH}"'
+        insertafter: EOF

@@ -1,17 +1,97 @@
-# install-basics.yml
-- name: Install basic packages
+---
+- name: Install GUI, development tools, and setup VM environment
   hosts: all
   become: true
+
+  vars:
+    keyboard_layout: us
+    hostname: precicevm
+    desktop_shortcut: /usr/share/applications/xfce-keyboard-settings.desktop
+
+  pre_tasks:
+    - name: Remove bad APT retry config if present
+      file:
+        path: /etc/apt/apt.conf.d/80-retries
+        state: absent
+
+    - name: Set correct APT retry config
+      copy:
+        dest: /etc/apt/apt.conf.d/80-retries
+        content: |
+          Acquire::Retries "4";
+        force: yes
+
   tasks:
-    - name: Update apt
+    - name: Add multiverse repository
+      apt_repository:
+        repo: "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse"
+        state: present
+        filename: multiverse
+
+    - name: Update APT cache
       apt:
         update_cache: yes
 
-    - name: Install essential packages
+    - name: Upgrade packages
       apt:
-        name: "{{ item }}"
+        upgrade: dist
+        force_apt_get: yes
+
+    - name: Install Xfce desktop environment
+      apt:
+        name: xubuntu-core
         state: present
-      loop:
-        - build-essential
-        - cmake
-        - git
+
+    - name: Install GUI and terminal apps
+      apt:
+        name:
+          - thunar
+          - xfce4-terminal
+          - terminator
+          - bash-completion
+          - tree
+          - atril
+          - firefox
+          - firefox-locale-en
+          - baobab
+          - catfish
+        state: present
+
+    - name: Install Python development tools
+      apt:
+        name:
+          - python3-dev
+          - pipx
+          - python-is-python3
+          - python3-venv
+        state: present
+
+    - name: Install VirtualBox Guest Additions
+      apt:
+        name:
+          - virtualbox-guest-utils
+          - virtualbox-guest-x11
+        state: present
+
+    - name: Create Desktop directory if not present
+      file:
+        path: "{{ ansible_env.HOME }}/Desktop"
+        state: directory
+        mode: '0755'
+
+    - name: Set US keyboard layout
+      lineinfile:
+        path: /etc/default/keyboard
+        regexp: '^XKBLAYOUT='
+        line: 'XKBLAYOUT="{{ keyboard_layout }}"'
+
+    - name: Copy keyboard settings shortcut to Desktop
+      copy:
+        src: "{{ desktop_shortcut }}"
+        dest: "{{ ansible_env.HOME }}/Desktop/"
+        remote_src: yes
+        mode: '0755'
+
+    - name: Set hostname
+      hostname:
+        name: "{{ hostname }}"

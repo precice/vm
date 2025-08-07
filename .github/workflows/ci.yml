@@ -1,0 +1,40 @@
+name: Ansible CI with Docker
+
+on: [push, pull_request]
+
+jobs:
+  test-ansible:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Build environment
+        run: sudo apt-get update && sudo apt-get install -y docker.io
+
+      - name: Build test container
+        run: |
+          docker build -t ansible-test -f - . <<EOF
+          FROM ubuntu:24.04
+
+          ENV DEBIAN_FRONTEND=noninteractive
+
+          RUN apt-get update && \
+              apt-get install -y \
+                python3 python3-pip python3-venv sudo git curl wget software-properties-common && \
+              pip3 install ansible ansible-lint && \
+              apt-get clean
+
+          WORKDIR /workspace
+          EOF
+
+      - name: Copy repo into container and run Ansible
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace ansible-test bash -c "
+            ansible-lint ansible/playbooks/
+            for playbook in ansible/playbooks/*.yml; do
+              echo 'Checking syntax of' \$playbook
+              ansible-playbook -i ansible/inventory.ini --syntax-check \$playbook
+            done
+          "

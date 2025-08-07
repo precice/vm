@@ -1,19 +1,14 @@
 ---
-- name: Install GUI, development tools, and setup VM environment
+- name: Install a dekstop environment, basic tools, and VM guest additions
   hosts: all
   become: true
 
   vars:
     keyboard_layout: us
     hostname: precicevm
-    desktop_shortcut: /usr/share/applications/xfce-keyboard-settings.desktop
 
   pre_tasks:
-    - name: Remove bad APT retry config if present
-      file:
-        path: /etc/apt/apt.conf.d/80-retries
-        state: absent
-
+    # Some repos are a bit fragile and need multiple download tries.
     - name: Set correct APT retry config
       copy:
         dest: /etc/apt/apt.conf.d/80-retries
@@ -22,6 +17,7 @@
         force: yes
 
   tasks:
+    # We (may) need the multiverse repository for the VBox Guest Additions
     - name: Add multiverse repository
       apt_repository:
         repo: "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse"
@@ -34,7 +30,7 @@
 
     - name: Upgrade packages
       apt:
-        upgrade: dist
+        upgrade: yes
         force_apt_get: yes
 
     - name: Install Xfce desktop environment
@@ -57,7 +53,7 @@
           - catfish
         state: present
 
-    - name: Install Python development tools
+    - name: Install Python
       apt:
         name:
           - python3-dev
@@ -79,7 +75,7 @@
         state: directory
         mode: '0755'
 
-    - name: Set US keyboard layout
+    - name: Set keyboard layout
       lineinfile:
         path: /etc/default/keyboard
         regexp: '^XKBLAYOUT='
@@ -87,7 +83,7 @@
 
     - name: Copy keyboard settings shortcut to Desktop
       copy:
-        src: "{{ desktop_shortcut }}"
+        src: /usr/share/applications/xfce-keyboard-settings.desktop
         dest: "{{ ansible_env.HOME }}/Desktop/"
         remote_src: yes
         mode: '0755'

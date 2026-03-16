@@ -11,7 +11,11 @@ sudo apt-get install -y bison cmake make flex g++ gcc gfortran \
 # Install code_aster 14.6 - skip to save time if target dir exists
 if [ ! -d "code_aster/" ]; then
     wget --quiet https://www.code-aster.org/FICHIERS/aster-full-src-14.6.0-1.noarch.tar.gz
-    tar xvzf aster-full-src-14.6.0-1.noarch.tar.gz && rm -fv aster-full-src-14.6.0-1.noarch.tar.gz
+    tar xvzf aster-full-src-14.6.0-1.noarch.tar.gz
+    # Remove tests from the aster source archive to prevent building them
+    find aster-full-src-14.6.0 -type d -name "tests" -prune -exec rm -rf {} +
+    tar -czf aster-full-src-14.6.0-1.noarch.tar.gz aster-full-src-14.6.0
+    rm -fv aster-full-src-14.6.0-1.noarch.tar.gz
     (
         cd aster-full-src-14.6.0
         yes | python3 setup.py install --prefix="${HOME}/code_aster"

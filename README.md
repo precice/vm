@@ -61,7 +61,7 @@ This box is based on the [bento/ubuntu-24.04](https://github.com/chef/bento) bas
 - FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
 - SU2 7.5.1 and the SU2-preCICE adapter (develop)
 - DUNE 2.9.1 and the experimental DUNE-preCICE adapter (main)
-- DuMuX 3.8 and the DuMuX-preCICE adapter (v2.0.0)
+- DuMux 3.9 and the DuMux-preCICE adapter (v3.0.0)
 - ASTE (master)
 - Paraview from APT
 - Gnuplot

@@ -7,5 +7,6 @@ python -m venv ~/python-venvs/openfoam-training
 source ~/python-venvs/openfoam-training/bin/activate
 python -m pip install openfoam-training
 pipx install ccx2paraview
+deactivate
 
 # FreeCAD is missing, to save space. Get it from https://www.freecad.org/downloads.php

@@ -50,7 +50,7 @@ This box is based on the [bento/ubuntu-24.04](https://github.com/chef/bento) bas
 - Diff viewer: meld
 - preCICE latest from the master branch (built in release-with-debug-info mode)
 - preCICE config visualizer with its GUI (PyPI, latest)
-- preCICE Python bindings (PyPI, latest)
+- preCICE Python bindings (PyPI, latest), under `~/python-venvs/pyprecice`.
 - preCICE Julia bindings (Pkg, latest)
 - preCICE Rust bindings (Cargo, latest)
 - preCICE FMI Runner (PyPI, latest)
@@ -58,7 +58,7 @@ This box is based on the [bento/ubuntu-24.04](https://github.com/chef/bento) bas
 - OpenFOAM v2512 and the OpenFOAM-preCICE adapter (Git, develop branch)
 - deal.II 9.5 from the official PPA and the deal.II-preCICE adapter (Git, develop branch)
 - CalculiX 2.20 from source and the CalculiX-preCICE adapter (Git, develop branch)
-- FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PyPI, latest)
+- FEniCS latest from the FEniCS PPA. The FEniCS-preCICE adapter is installed automatically in the Python virtual environment of each tutorial.
 - SU2 7.5.1 and the SU2-preCICE adapter (Git, develop branch)
 - DUNE 2.9.1 and the experimental DUNE-preCICE adapter (Git, main branch)
 - DuMux 3.9 and the DuMux-preCICE adapter (Git, v3.0.0)

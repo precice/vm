@@ -5,7 +5,7 @@ set -ex
 python -m venv ~/python-venvs/su2precice
 # shellcheck disable=SC1090 # We don't need to lint this external script
 source ~/python-venvs/su2precice/bin/activate
-python -m pip install mpi4py setuptools
+python -m pip install mpi4py setuptools # pyprecice is installed by the tutorials
 sudo apt-get -y install swig
 
 # Get SU2 7.5.1 from GitHub

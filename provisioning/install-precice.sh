@@ -50,8 +50,7 @@ sudo apt-get -y install gnuplot # needed for watchpoint scripts of tutorials
 
 
 ### OPTIONAL - preCICE Python bindings and Python example
-# Get PIP and the preCICE Python bindings
-sudo apt-get install -y python3-pip
+# Automatically installed by the tutorials, but needed for the training
 
 python -m venv ~/python-venvs/pyprecice
 # shellcheck disable=SC1090 # We don't need to lint this external script

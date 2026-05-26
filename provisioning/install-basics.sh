@@ -19,8 +19,7 @@ sudo apt-get install -y python3-dev pipx python-is-python3 python3-venv python3-
 # echo "autologin-user=vagrant" | sudo tee --append /usr/share/lightdm/lightdm.conf.d/60-xubuntu.conf
 
 # Install the VirtualBox guest additions
-# The order seems to be important: installing -x11 after -utils leads to a configuration file conflict
-sudo apt-get install -y virtualbox-guest-x11 virtualbox-guest-utils
+sudo apt-get install -y virtualbox-guest-utils
 
 # Create Desktop
 mkdir -p ~/Desktop

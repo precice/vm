@@ -45,24 +45,28 @@ Vagrant.configure("2") do |config|
   # Install preCICE
   config.vm.provision "shell", path: "provisioning/install-precice.sh", privileged: false
 
-  # Install solvers, adapters, and related tools
+  # Install solvers, adapters, and related tools from the preCICE Distribution used in trainings
   config.vm.provision "shell", path: "provisioning/install-config-visualizer.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-calculix.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-fenics.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-fmiprecice.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-micro-manager.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
-  # code_aster does not build on Ubuntu 22.04/24.04 due to multiple issues: https://github.com/precice/code_aster-adapter/issues/26
-  # config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-julia-bindings.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
 
-  # Install additional packages for training contexts
+  # Install additional packages for training
   config.vm.provision "shell", path: "provisioning/install-training-fsi.sh" privileged: false
+
+  # Install further packages from the preCICE Distribution
+  config.vm.provision "shell", path: "provisioning/install-julia-bindings.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-rust-bindings.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
+
+  # code_aster does not build on Ubuntu 22.04/24.04 due to multiple issues: https://github.com/precice/code_aster-adapter/issues/26
+  # config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
 
   # Post-installation steps
   config.vm.provision "shell", path: "provisioning/post-install.sh", privileged: false

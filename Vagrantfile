@@ -50,8 +50,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-calculix.sh", privileged: false
-  # FEniCS is not yet available for Ubuntu 24.04: https://launchpad.net/~fenics-packages/+archive/ubuntu/fenics
-  # config.vm.provision "shell", path: "provisioning/install-fenics.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-fenics.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-fmiprecice.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-micro-manager.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false

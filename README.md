@@ -58,6 +58,7 @@ This box is based on the [bento/ubuntu-24.04](https://github.com/chef/bento) bas
 - OpenFOAM v2312 and the OpenFOAM-preCICE adapter (master)
 - deal.II 9.3 from the official backports and the deal.II-preCICE adapter (master)
 - CalculiX 2.20 from source and the CalculiX-preCICE adapter (master)
+- FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
 - SU2 7.5.1 and the SU2-preCICE adapter (master)
 - DUNE 2.9.1 and the experimental DUNE-preCICE adapter (main)
 - DuMuX 3.8 and the DuMuX-preCICE adapter (v2.0.0)
@@ -76,8 +77,7 @@ At the end, it cleans up all object files and the APT cache (see `cleanup.sh`).
 
 ## What should be there but is currently not included?
 
-- code_aster 14.6 and the code_aster-preCICE adapter (master)
-- FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
+- code_aster 14.6 and the code_aster-preCICE adapter
 
 ## Troubleshooting
 

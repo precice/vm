@@ -4,7 +4,7 @@ set -ex
 # Install CLI dependencies
 sudo apt-get install -y graphviz
 # Install GUI depedencies
-sudo apt-get install -y build-essential pkg-config python3-dev libcairo2-dev libgirepository1.0-dev gir1.2-gtk-3.0
+sudo apt-get install -y build-essential pkg-config python3-dev libcairo2-dev libgirepository-2.0-dev gir1.2-gtk-3.0
 
 # Get the config-visualizer from PIP
 pipx install --force precice-config-visualizer

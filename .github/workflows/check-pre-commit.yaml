@@ -1,0 +1,16 @@
+name: Check pre-commit
+on: [push, pull_request]
+jobs:
+  check_style:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v6
+      - name: Setup python
+        uses: actions/setup-python@v6
+        with:
+         python-version: '3.x'
+      - name: Install pre-commit
+        run: pip install pre-commit
+      - name: Run checks
+        run: pre-commit run -a

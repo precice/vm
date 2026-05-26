@@ -11,7 +11,7 @@ rm -fv ccx_2.20.src.tar.bz2
 
 # Get the CalculiX-preCICE adapter
 if [ ! -d "calculix-adapter/" ]; then
-    git clone --depth=1 --branch master https://github.com/precice/calculix-adapter.git
+    git clone --depth=1 --branch develop https://github.com/precice/calculix-adapter.git
 fi
 (
     cd calculix-adapter

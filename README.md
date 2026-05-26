@@ -52,7 +52,6 @@ This box is based on the [bento/ubuntu-24.04](https://github.com/chef/bento) bas
 - preCICE config visualizer with its GUI (PyPI, latest)
 - preCICE Python bindings (PyPI, latest), under `~/python-venvs/pyprecice`.
 - preCICE Julia bindings (Pkg, latest)
-- preCICE Rust bindings (Cargo, latest)
 - preCICE FMI Runner (PyPI, latest)
 - preCICE Micro Manager (PyPI, latest)
 - OpenFOAM v2512 and the OpenFOAM-preCICE adapter (Git, develop branch)
@@ -77,6 +76,7 @@ At the end, it cleans up all object files and the APT cache (see `cleanup.sh`).
 ## What should be there but is currently not included?
 
 - ASTE (Git, develop branch) -> Cannot build using the VTK packages bundled in Ubuntu 24.04. Will enable again in the next upgrade.
+- preCICE Rust bindings (Cargo, latest) -> Cargo too old in Ubuntu 24.04.
 - code_aster 14.6 and the code_aster-preCICE adapter -> Adapter currently unmaintained.
 
 ## Troubleshooting

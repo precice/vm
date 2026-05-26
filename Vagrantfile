@@ -64,11 +64,14 @@ Vagrant.configure("2") do |config|
 
   # Install further packages from the preCICE Distribution
   config.vm.provision "shell", path: "provisioning/install-julia-bindings.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-rust-bindings.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
-
+  
+  # Rust tutorials incompatible with cargo 1.75.0, shipped with Ubuntu 24.04
+  # Error: The package requires the Cargo feature called `edition2024`, but that feature is not stabilized in this version of Cargo (1.75.0).
+  # config.vm.provision "shell", path: "provisioning/install-rust-bindings.sh", privileged: false
+  
   # code_aster does not build on Ubuntu 22.04/24.04 due to multiple issues: https://github.com/precice/code_aster-adapter/issues/26
   # config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
 

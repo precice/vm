@@ -28,7 +28,7 @@ echo ". \${HOME}/.su2-bashrc" >> ~/.bashrc
 
 # Get the SU2-preCICE adapter
 if [ ! -d "su2-adapter/" ]; then
-    git clone --depth=1 --branch master https://github.com/precice/su2-adapter.git
+    git clone --depth=1 --branch develop https://github.com/precice/su2-adapter.git
 fi
 (
     cd su2-adapter

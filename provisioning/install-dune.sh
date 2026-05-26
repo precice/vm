@@ -66,14 +66,14 @@ fi
 
 # Get DuMux and the DuMux-preCICE adapter
 if [ ! -d "dumux/" ]; then
-    git clone --depth 1 --branch releases/3.8 https://git.iws.uni-stuttgart.de/dumux-repositories/dumux.git
+    git clone --depth 1 --branch releases/3.9 https://git.iws.uni-stuttgart.de/dumux-repositories/dumux.git
 fi
 
 # Build DuMux
 CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_DISABLE_FIND_PACKAGE_Kokkos=TRUE" ./dune-common/bin/dunecontrol --only=dumux all
 
 if [ ! -d "dumux-adapter/" ]; then
-    git clone  --depth 1 --branch v2.0.0 https://github.com/precice/dumux-adapter.git
+    git clone  --depth 1 --branch v3.0.0 https://github.com/precice/dumux-adapter.git
 fi
 
 # Build the DuMux-preCICE adapter

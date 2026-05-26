@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   # This allows us to create performance oriented images for Linux (libvirt) and Windows (hyperv).
   # However, it does not build: https://github.com/precice/vm/issues/83
   # config.vm.box = "generic/ubuntu2004"
-  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.box = "bento/ubuntu-24.04"
 
   # We don't want the box to automatically update every time it starts.
   # We can instead handle updates internally, without destroying the machine.
@@ -45,20 +45,35 @@ Vagrant.configure("2") do |config|
   # Install preCICE
   config.vm.provision "shell", path: "provisioning/install-precice.sh", privileged: false
 
-  # Install solvers, adapters, and related tools
+  # Install solvers, adapters, and related tools from the preCICE Distribution used in trainings
   config.vm.provision "shell", path: "provisioning/install-config-visualizer.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-openfoam.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-calculix.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-fenics.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-fmiprecice.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-micro-manager.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
+
+  # NOTE: In Ubuntu 24.04, building ASTE will succeed, but running the aste-turbine tutorial, for example, will break.
+  # See the documentation: https://precice.org/tooling-aste.html#dependencies
+  # Disabling until the upgrade to Ubuntu 26.04
+  # config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
+
+  # Install additional packages for training
+  config.vm.provision "shell", path: "provisioning/install-training-fsi.sh", privileged: false
+
+  # Install further packages from the preCICE Distribution
   config.vm.provision "shell", path: "provisioning/install-julia-bindings.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-dealii.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
+  
+  # Rust tutorials incompatible with cargo 1.75.0, shipped with Ubuntu 24.04
+  # Error: The package requires the Cargo feature called `edition2024`, but that feature is not stabilized in this version of Cargo (1.75.0).
+  # config.vm.provision "shell", path: "provisioning/install-rust-bindings.sh", privileged: false
+  
+  # code_aster does not build on Ubuntu 22.04/24.04 due to multiple issues: https://github.com/precice/code_aster-adapter/issues/26
+  # config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
 
   # Post-installation steps
   config.vm.provision "shell", path: "provisioning/post-install.sh", privileged: false

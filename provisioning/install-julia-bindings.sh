@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # install latest julia
-pip3 install jill
+pipx install jill
 jill install --confirm
 
 # install preCICE bindings

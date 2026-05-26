@@ -30,24 +30,18 @@ cp -r /usr/share/precice/examples/ ./precice-examples
     cd cpp && cmake . && make && cd ..
     cd fortran && cmake . && make && cd ..
     if [ ! -d "fortran-module/" ]; then
-        git clone --depth=1 --branch master https://github.com/precice/fortran-module.git
+        git clone --depth=1 --branch develop https://github.com/precice/fortran-module.git
     fi
     cd fortran-module && make
     cd examples/solverdummy && make
 )
 
 if [ ! -d "tutorials/" ]; then
-    git clone --depth=1 --branch master https://github.com/precice/tutorials.git
+    git clone --depth=1 --branch develop https://github.com/precice/tutorials.git
     ln -sf ~/tutorials ~/Desktop/
 fi
 (
     cd tutorials/quickstart/solid-cpp/ && cmake . && make
-)
-(
-    cd tutorials/elastic-tube-1d/solid-rust/ && mkdir -p .cargo && cargo vendor > .cargo/config.toml
-)
-(
-    cd tutorials/elastic-tube-1d/fluid-rust/ && mkdir -p .cargo && cargo vendor > .cargo/config.toml
 )
 (
     cd tutorials/heat-exchanger && ./download-meshes.sh
@@ -56,13 +50,18 @@ sudo apt-get -y install gnuplot # needed for watchpoint scripts of tutorials
 
 
 ### OPTIONAL - preCICE Python bindings and Python example
-# Get PIP and the preCICE Python bindings
-sudo apt-get install -y python3-pip
-pip3 install --upgrade pip
-pip3 install --user pyprecice
+# Automatically installed by the tutorials, but needed for the training
 
-# Additional python packages
-pip3 install --user pandas matplotlib polars # Needed for the post-processing scripts
+python -m venv ~/python-venvs/pyprecice
+# shellcheck disable=SC1090 # We don't need to lint this external script
+source ~/python-venvs/pyprecice/bin/activate
+
+python -m pip install pyprecice
+
+# Additional python packages -> Should go into tutorials venvs
+# pip3 install --user pandas matplotlib polars # Needed for the post-processing scripts
+
+deactivate
 
 # Get the Python solverdummy into the examples
 if [ ! -d "python-bindings/" ]; then

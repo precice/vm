@@ -56,7 +56,7 @@ This box is based on the [bento/ubuntu-24.04](https://github.com/chef/bento) bas
 - preCICE FMI Runner (PIP)
 - preCICE Micro Manager (PIP)
 - OpenFOAM v2512 and the OpenFOAM-preCICE adapter (develop)
-- deal.II 9.3 from the official backports and the deal.II-preCICE adapter (master)
+- deal.II 9.5 from the official PPA and the deal.II-preCICE adapter (develop)
 - CalculiX 2.20 from source and the CalculiX-preCICE adapter (master)
 - FEniCS latest from the FEniCS PPA and the FEniCS-preCICE adapter (PIP)
 - SU2 7.5.1 and the SU2-preCICE adapter (master)

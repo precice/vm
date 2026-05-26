@@ -58,9 +58,6 @@ source ~/python-venvs/pyprecice/bin/activate
 
 python -m pip install pyprecice
 
-# Additional python packages -> Should go into tutorials venvs
-# pip3 install --user pandas matplotlib polars # Needed for the post-processing scripts
-
 deactivate
 
 # Get the Python solverdummy into the examples

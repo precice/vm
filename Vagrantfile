@@ -60,6 +60,7 @@ Vagrant.configure("2") do |config|
   # config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
 
   # Install additional packages for training
+  config.vm.provision "shell", path: "provisioning/install-training-python.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-training-fsi.sh", privileged: false
 
   # Install further packages from the preCICE Distribution

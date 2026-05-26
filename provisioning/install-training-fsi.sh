@@ -2,9 +2,8 @@
 set -ex
 
 # Additional packages for the FSI training module
-python -m venv ~/python-venvs/training-fsi
 # shellcheck disable=SC1090 # We don't need to lint this external script
-source ~/python-venvs/training-fsi/bin/activate
+source ~/python-venvs/pyprecice/bin/activate
 python -m pip install pyfoam
 deactivate
 pipx install ccx2paraview

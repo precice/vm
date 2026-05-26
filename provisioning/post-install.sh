@@ -14,4 +14,8 @@ chmod +x ~/Desktop/terminator.desktop
     echo "gsettings set org.gnome.desktop.screensaver lock-enabled false"
 } >> ~/.bashrc
 
-echo "source ${HOME}/.alias" >>~/.bashrc
+# Add aliases and enable the python venv by default
+{
+    echo "source ${HOME}/.alias"
+    echo "source ${HOME}/python-venvs/pyprecice/bin/activate"
+} >> ~/.bashrc

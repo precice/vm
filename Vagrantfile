@@ -53,7 +53,11 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provisioning/install-fmiprecice.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-micro-manager.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
-  config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
+
+  # NOTE: In Ubuntu 24.04, building ASTE will succeed, but running the aste-turbine tutorial, for example, will break.
+  # See the documentation: https://precice.org/tooling-aste.html#dependencies
+  # Disabling until the upgrade to Ubuntu 26.04
+  # config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
 
   # Install additional packages for training
   config.vm.provision "shell", path: "provisioning/install-training-fsi.sh", privileged: false

@@ -15,7 +15,7 @@ python3 -m pip install sympy scipy jinja2
 
 # Get aste
 if [ ! -d "aste/" ]; then
-    git clone --depth=1 --branch master https://github.com/precice/aste.git
+    git clone --depth=1 --branch develop https://github.com/precice/aste.git
 fi
 (
     cd aste

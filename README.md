@@ -15,7 +15,7 @@ Ready-to-use boxes are available on [Vagrant Cloud](https://app.vagrantup.com/pr
 **Note:** If you only want to directly get a pre-built box, look at the [documentation](https://www.precice.org/installation-vm.html).
 
 1. Get a Virtual Machine provider, such as [VirtualBox](https://www.virtualbox.org/)
-2. Get [Vagrant](https://www.vagrantup.com/)
+2. Get [Vagrant](https://www.vagrantup.com/) and the [vagrant-reload plugin](https://github.com/aidanns/vagrant-reload)
 3. Go to the root folder of this repository and start with `vagrant up`.
 4. Be patient. Vagrant will now setup your virtual machine. You don't have to do anything and your terminal will be very busy.
 5. After the provisioning finishes, restart the machine with `vagrant reload` to get a full GUI

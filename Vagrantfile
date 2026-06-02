@@ -39,6 +39,9 @@ Vagrant.configure("2") do |config|
   # Install a desktop environment and basic tools
   config.vm.provision "shell", path: "provisioning/install-basics.sh", privileged: false
   
+  # Reload the VM (requires https://github.com/aidanns/vagrant-reload)
+  config.vm.provision :reload
+
   # Install common development tools
   config.vm.provision "shell", path: "provisioning/install-devel.sh", privileged: false
   

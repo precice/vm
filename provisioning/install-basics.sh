@@ -11,7 +11,7 @@ sudo apt-get upgrade -qy
 
 # Install the Xfce desktop environment and basic applications
 sudo apt-get install -y xubuntu-core
-sudo apt-get install -y thunar xfce4-terminal terminator bash-completion tree atril firefox firefox-locale-en baobab catfish file-roller
+sudo apt-get install -y thunar thunar-archive-plugin xfce4-terminal terminator bash-completion tree atril firefox firefox-locale-en baobab catfish
 sudo apt-get install -y python3-dev pipx python-is-python3 python3-venv python3-pip python3-pybind11
 
 # Setup auto-login for the graphical session

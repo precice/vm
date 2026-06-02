@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   # This allows us to create performance oriented images for Linux (libvirt) and Windows (hyperv).
   # However, it does not build: https://github.com/precice/vm/issues/83
   # config.vm.box = "generic/ubuntu2004"
-  config.vm.box = "bento/ubuntu-24.04"
+  config.vm.box = "bento/ubuntu-26.04"
 
   # We don't want the box to automatically update every time it starts.
   # We can instead handle updates internally, without destroying the machine.
@@ -18,9 +18,9 @@ Vagrant.configure("2") do |config|
     # Display the VirtualBox GUI when booting the machine
     vb.gui = true
     # Number of cores
-    vb.cpus = 2
+    vb.cpus = 4
     # Customize the amount of memory on the VM:
-    vb.memory = "2048"
+    vb.memory = "4096"
     # Video memory (the default may be too low for some applications)
     vb.customize ["modifyvm", :id, "--vram", "64"]
     # The default graphics controller is VboxSVGA. This seems to cause issues with auto-scaling.
@@ -32,8 +32,8 @@ Vagrant.configure("2") do |config|
   config.vm.provider :libvirt do |lv|
     lv.forward_ssh_port = true
     lv.title = "preCICE-VM"
-    lv.cpus = 2
-    lv.memory = 2048
+    lv.cpus = 4
+    lv.memory = 4096
   end
 
   # Install a desktop environment and basic tools
@@ -56,8 +56,7 @@ Vagrant.configure("2") do |config|
 
   # NOTE: In Ubuntu 24.04, building ASTE will succeed, but running the aste-turbine tutorial, for example, will break.
   # See the documentation: https://precice.org/tooling-aste.html#dependencies
-  # Disabling until the upgrade to Ubuntu 26.04
-  # config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
+  config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
 
   # Install additional packages for training
   config.vm.provision "shell", path: "provisioning/install-training-python.sh", privileged: false

@@ -54,7 +54,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provisioning/install-micro-manager.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-paraview.sh", privileged: false
 
-  # NOTE: In Ubuntu 24.04, building ASTE will succeed, but running the aste-turbine tutorial, for example, will break.
+  # NOTE: On Ubuntu 24.04, building ASTE will succeed, but running the aste-turbine tutorial, for example, will break.
   # See the documentation: https://precice.org/tooling-aste.html#dependencies
   config.vm.provision "shell", path: "provisioning/install-aste.sh", privileged: false
 
@@ -68,11 +68,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "provisioning/install-dune.sh", privileged: false
   config.vm.provision "shell", path: "provisioning/install-su2.sh", privileged: false
   
-  # Rust tutorials incompatible with cargo 1.75.0, shipped with Ubuntu 24.04
-  # Error: The package requires the Cargo feature called `edition2024`, but that feature is not stabilized in this version of Cargo (1.75.0).
-  # config.vm.provision "shell", path: "provisioning/install-rust-bindings.sh", privileged: false
+  # NOTE: On Ubuntu 24.04, the Rust cargo installation is too old.
+  config.vm.provision "shell", path: "provisioning/install-rust-bindings.sh", privileged: false
   
-  # code_aster does not build on Ubuntu 22.04/24.04 due to multiple issues: https://github.com/precice/code_aster-adapter/issues/26
+  # code_aster does not build on Ubuntu 22.04 or later due to multiple issues: https://github.com/precice/code_aster-adapter/issues/26
   # config.vm.provision "shell", path: "provisioning/install-code_aster.sh", privileged: false
 
   # Post-installation steps

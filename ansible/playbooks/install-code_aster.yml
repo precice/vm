@@ -1,0 +1,151 @@
+---
+- name: Install Code_Aster and its preCICE adapter
+  hosts: all
+  become: true
+  vars:
+    aster_url: "https://www.code-aster.org/FICHIERS/aster-full-src-14.6.0-1.noarch.tar.gz"
+    aster_tarball: "aster-full-src-14.6.0-1.noarch.tar.gz"
+    aster_extract_dir: "aster-full-src-14.6.0"
+    aster_install_path: "{{ ansible_env.HOME }}/code_aster"
+    adapter_repo_url: "https://github.com/precice/code_aster-adapter.git"
+    adapter_path: "{{ ansible_env.HOME }}/code_aster-adapter"
+    tutorial_path: "{{ ansible_env.HOME }}/tutorials/flow-over-heated-plate-steady-state"
+
+  tasks:
+    - name: Install Code_Aster dependencies
+      apt:
+        name:
+          - bison
+          - cmake
+          - make
+          - flex
+          - g++
+          - gcc
+          - gfortran
+          - grace
+          - liblapack-dev
+          - libblas-dev
+          - libboost-numpy-dev
+          - libboost-python-dev
+          - python3
+          - python3-dev
+          - python3-numpy
+          - tk
+          - zlib1g-dev
+        state: present
+        update_cache: yes
+
+    - name: Download Code_Aster tarball
+      become: false
+      get_url:
+        url: "{{ aster_url }}"
+        dest: "{{ ansible_env.HOME }}/{{ aster_tarball }}"
+        mode: '0644'
+
+    - name: Extract Code_Aster source
+      become: false
+      unarchive:
+        src: "{{ ansible_env.HOME }}/{{ aster_tarball }}"
+        dest: "{{ ansible_env.HOME }}"
+        remote_src: yes
+
+    - name: Install Code_Aster to user directory
+      become: false
+      shell: |
+        yes | python3 setup.py install --prefix="{{ aster_install_path }}"
+      args:
+        chdir: "{{ ansible_env.HOME }}/{{ aster_extract_dir }}"
+        executable: /bin/bash
+
+    - name: Clean up extracted Code_Aster source
+      become: false
+      file:
+        path: "{{ ansible_env.HOME }}/{{ aster_extract_dir }}"
+        state: absent
+
+    - name: Add Code_Aster to .bashrc
+      become: false
+      lineinfile:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+        line: '. {{ aster_install_path }}/etc/codeaster/profile.sh'
+        insertafter: EOF
+
+    - name: Clone Code_Aster adapter
+      become: false
+      git:
+        repo: "{{ adapter_repo_url }}"
+        dest: "{{ adapter_path }}"
+        version: master
+        depth: 1
+        update: yes
+
+    - name: Symlink adapter.py to Code_Aster Execution directory
+      become: false
+      file:
+        src: "{{ adapter_path }}/cht/adapter.py"
+        dest: "{{ aster_install_path }}/14.6/lib/aster/Execution/adapter.py"
+        state: link
+
+    - name: Remove tests from Code_Aster to save space
+      become: false
+      file:
+        path: "{{ aster_install_path }}/14.6/share/aster/tests"
+        state: absent
+
+    - name: Remove documentation from Code_Aster to save space
+      become: false
+      file:
+        path: "{{ aster_install_path }}/public/med-4.00/share/doc"
+        state: absent
+
+    - name: Update exchange directory path in precice-config.xml
+      become: false
+      replace:
+        path: "{{ tutorial_path }}/precice-config.xml"
+        regexp: 'exchange-directory=".."'
+        replace: 'exchange-directory="{{ tutorial_path }}"'
+
+    - name: Generate solid.export file for solid-codeaster
+      become: false
+      shell: |
+        if [ ! -f solid.export ]; then
+          cat <<EOF > solid.export
+P actions make_etude
+P aster_root /code_aster
+P consbtc oui
+P debug nodebug
+P display precicevm:0
+P follow_output yes
+P mclient precicevm
+P memjob 524288
+P memory_limit 512.0
+P mode interactif
+P ncpus 1
+P nomjob linear-thermic
+P origine salomemeca_asrun 1.10.0
+P protocol_copyfrom asrun.plugins.server.SCPServer
+P protocol_copyto asrun.plugins.server.SCPServer
+P protocol_exec asrun.plugins.server.SSHServer
+P rep_trav /tmp/root-23129e00f0db-interactif_4800
+P serveur localhost
+P soumbtc oui
+P time_limit 600.0
+P tpsjob 11
+P uclient precicevm
+P username precicevm
+P version stable
+A memjeveux 64.0
+A tpmax 600.0
+F comm ${HOME}/code_aster-adapter/cht/adapter.comm D 1
+F libr $(pwd)/config.comm D 90
+F libr $(pwd)/def.comm D 91
+F mmed $(pwd)/solid.mmed D 20
+R repe $(pwd)/REPE_OUT D 0
+R repe $(pwd)/REPE_OUT R 0
+F mess $(pwd)/solid.mess R 6
+F resu $(pwd)/solid.resu R 8
+EOF
+        fi
+      args:
+        chdir: "{{ tutorial_path }}/solid-codeaster"
+        executable: /bin/bash

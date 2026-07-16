@@ -1,0 +1,93 @@
+- name: Install SU2 and SU2-preCICE adapter
+  hosts: all
+  become: true
+
+  vars:
+    su2_version: "7.5.1"
+    su2_tar: "v{{ su2_version }}.tar.gz"
+    su2_dir: "SU2-{{ su2_version }}"
+    su2_adapter_repo: "https://github.com/precice/su2-adapter.git"
+
+  tasks:
+    - name: Create Python venv for SU2 adapter
+      ansible.builtin.shell: python3 -m venv ~/python-venvs/su2precice
+      args:
+        executable: /bin/bash
+
+    - name: Activate venv and install pip dependencies
+      shell: |
+        source ~/python-venvs/su2precice/bin/activate
+        python -m pip install --upgrade pip
+        python -m pip install mpi4py setuptools
+      args:
+        executable: /bin/bash
+
+    - name: Install swig
+      apt:
+        name: swig
+        state: present
+
+    - name: Download SU2 {{ su2_version }}
+      get_url:
+        url: "https://github.com/su2code/SU2/archive/refs/tags/{{ su2_tar }}"
+        dest: "~/{{ su2_tar }}"
+
+    - name: Extract SU2
+      unarchive:
+        src: "~/{{ su2_tar }}"
+        dest: ~/
+        remote_src: yes
+
+    - name: Remove SU2 tarball
+      file:
+        path: "~/{{ su2_tar }}"
+        state: absent
+
+    - name: Create ~/.su2-bashrc with SU2 environment variables
+      copy:
+        dest: ~/.su2-bashrc
+        content: |
+          export SU2_HOME="${HOME}/{{ su2_dir }}"
+          export SU2_RUN="${SU2_HOME}/SU2_CFD"
+          export PATH="${SU2_RUN}/bin/:${HOME}/su2-adapter/run/:${PATH}"
+          export PYTHONPATH="${SU2_RUN}/bin/:${PYTHONPATH}"
+
+    - name: Source .su2-bashrc from .bashrc
+      lineinfile:
+        path: ~/.bashrc
+        line: ". ${HOME}/.su2-bashrc"
+        create: yes
+
+    - name: Clone SU2 adapter
+      git:
+        repo: "{{ su2_adapter_repo }}"
+        dest: ~/su2-adapter
+        version: master
+        depth: 1
+
+    - name: Install SU2 adapter
+      shell: |
+        source ~/.su2-bashrc
+        ./su2AdapterInstall
+      args:
+        chdir: ~/su2-adapter
+        executable: /bin/bash
+
+    - name: Fix missing header for Ubuntu 24.04 compatibility
+      lineinfile:
+        path: "~/{{ su2_dir }}/SU2_CFD/src/output/filewriter/CParaviewXMLFileWriter.cpp"
+        line: "#include <cstdint>"
+        insertafter: BOF
+
+    - name: Configure and build SU2 with Python wrapper
+      shell: |
+        source ~/.su2-bashrc
+        ./meson.py build -Denable-pywrapper=true --prefix="${SU2_RUN}" && ./ninja -C build install
+      args:
+        chdir: "~/{{ su2_dir }}"
+        executable: /bin/bash
+
+    - name: Remove libSU2Core.a to save space
+      file:
+        path: "~/{{ su2_dir }}/SU2_CFD/obj/libSU2Core.a"
+        state: absent

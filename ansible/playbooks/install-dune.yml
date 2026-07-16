@@ -1,0 +1,117 @@
+---
+- name: Install DUNE, DuMux, and preCICE adapters
+  hosts: all
+  gather_facts: yes
+  vars:
+    home_dir: "{{ ansible_env.HOME }}"
+    dune_dir: "{{ home_dir }}/dune-dumux"
+    dune_modules:
+      - { name: dune-common, url: https://gitlab.dune-project.org/core/dune-common.git, branch: v2.9.1 }
+      - { name: dune-istl, url: https://gitlab.dune-project.org/core/dune-istl.git, branch: v2.9.1 }
+      - { name: dune-localfunctions, url: https://gitlab.dune-project.org/core/dune-localfunctions.git, branch: v2.9.1 }
+      - { name: dune-grid, url: https://gitlab.dune-project.org/core/dune-grid.git, branch: v2.9.1 }
+      - { name: dune-geometry, url: https://gitlab.dune-project.org/core/dune-geometry.git, branch: v2.9.1 }
+      - { name: dune-foamgrid, url: https://gitlab.dune-project.org/extensions/dune-foamgrid.git, branch: 2.9.1 }
+      - { name: dune-functions, url: https://gitlab.dune-project.org/staging/dune-functions.git, branch: v2.9.1 }
+      - { name: dune-typetree, url: https://gitlab.dune-project.org/staging/dune-typetree.git, branch: v2.9.1 }
+      - { name: dune-uggrid, url: https://gitlab.dune-project.org/staging/dune-uggrid.git, branch: v2.9.1 }
+    elastodynamics_repo: "https://github.com/maxfirmbach/dune-elastodynamics.git"
+    dune_adapter_repo: "https://github.com/precice/dune-adapter.git"
+    dumux_repo: "https://git.iws.uni-stuttgart.de/dumux-repositories/dumux.git"
+    dumux_adapter_repo: "https://github.com/precice/dumux-adapter.git"
+
+  tasks:
+    - name: Install git if not present
+      become: true
+      apt:
+        name: git
+        state: present
+        update_cache: yes
+
+    - name: Ensure dune-dumux directory exists
+      file:
+        path: "{{ dune_dir }}"
+        state: directory
+
+    - name: Clone core DUNE modules
+      git:
+        repo: "{{ item.url }}"
+        dest: "{{ dune_dir }}/{{ item.name }}"
+        version: "{{ item.branch }}"
+        depth: 1
+        update: yes
+      loop: "{{ dune_modules }}"
+
+    - name: Clone dune-elastodynamics
+      git:
+        repo: "{{ elastodynamics_repo }}"
+        dest: "{{ dune_dir }}/dune-elastodynamics"
+        version: master
+        depth: 1
+        update: yes
+
+    - name: Pull latest dune-elastodynamics
+      shell: git pull
+      args:
+        chdir: "{{ dune_dir }}/dune-elastodynamics"
+
+    - name: Clone dune-adapter
+      git:
+        repo: "{{ dune_adapter_repo }}"
+        dest: "{{ dune_dir }}/dune-adapter"
+        version: main
+        depth: 1
+        update: yes
+
+    - name: Pull latest dune-adapter
+      shell: git pull
+      args:
+        chdir: "{{ dune_dir }}/dune-adapter/dune-precice"
+
+    - name: Build all DUNE modules with dunecontrol
+      shell: ./dune-common/bin/dunecontrol all
+      args:
+        chdir: "{{ dune_dir }}"
+
+    - name: Clone DuMux repository
+      git:
+        repo: "{{ dumux_repo }}"
+        dest: "{{ dune_dir }}/dumux"
+        version: releases/3.8
+        depth: 1
+        update: yes
+
+    - name: Build DuMux with dunecontrol
+      shell: |
+        CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_DISABLE_FIND_PACKAGE_Kokkos=TRUE" ./dune-common/bin/dunecontrol --only=dumux all
+      args:
+        chdir: "{{ dune_dir }}"
+        executable: /bin/bash
+
+    - name: Clone DuMux adapter
+      git:
+        repo: "{{ dumux_adapter_repo }}"
+        dest: "{{ dune_dir }}/dumux-adapter"
+        version: v2.0.0
+        depth: 1
+        update: yes
+
+    - name: Build DuMux adapter with dunecontrol
+      shell: |
+        CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_DISABLE_FIND_PACKAGE_Kokkos=TRUE" ./dune-common/bin/dunecontrol --only=dumux-precice all
+      args:
+        chdir: "{{ dune_dir }}"
+        executable: /bin/bash
+
+    - name: Add DUNE_CONTROL_PATH to .bashrc
+      lineinfile:
+        path: "{{ home_dir }}/.bashrc"
+        line: 'export DUNE_CONTROL_PATH="{{ dune_dir }}"'
+        insertafter: EOF
+
+    - name: Copy DUNE example to tutorials
+      copy:
+        src: "{{ dune_dir }}/dune-adapter/dune-precice-howto/build-cmake/examples/dune-perpendicular-flap"
+        dest: "{{ home_dir }}/tutorials/perpendicular-flap/solid-dune"
+        remote_src: yes
+        mode: '0755'

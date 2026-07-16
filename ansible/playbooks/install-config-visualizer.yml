@@ -1,0 +1,91 @@
+---
+- name: Install preCICE Config Visualizer CLI and GUI
+  hosts: all
+  become: true
+  vars:
+    user_home: "/home/vagrant"
+    visualizer_version: "1.1.3"
+    visualizer_gui_version: "0.1.0"
+    pipx_bin_path: "{{ user_home }}/.local/bin"
+    pipx_venv_gui_path: "{{ user_home }}/.local/share/pipx/venvs/precice-config-visualizer-gui/share"
+
+  tasks:
+    - name: Install CLI dependencies (graphviz)
+      apt:
+        name: graphviz
+        state: present
+        update_cache: yes
+
+    - name: Install system dependencies for GUI and PyGObject
+      apt:
+        name:
+          - build-essential
+          - pkg-config
+          - python3-dev
+          - libcairo2-dev
+          - libgirepository1.0-dev
+          - libglib2.0-dev
+          - libffi-dev                    # ✅ REQUIRED FOR PyGObject
+          - gir1.2-gtk-3.0
+          - python3-gi
+          - python3-cairo
+          - meson
+          - ninja-build
+        state: present
+        update_cache: yes
+
+    - name: Ensure pipx is installed
+      apt:
+        name: pipx
+        state: present
+
+    - name: Install preCICE Config Visualizer CLI
+      become: false
+      shell: |
+        pipx install --force precice-config-visualizer=={{ visualizer_version }}
+      environment:
+        PATH: "{{ pipx_bin_path }}:{{ ansible_env.PATH }}"
+      args:
+        executable: /bin/bash
+
+    - name: Install preCICE Config Visualizer GUI
+      become: false
+      shell: |
+        pipx install --force precice-config-visualizer-gui=={{ visualizer_gui_version }}
+      environment:
+        PATH: "{{ pipx_bin_path }}:{{ ansible_env.PATH }}"
+      args:
+        executable: /bin/bash
+
+    - name: Add pipx bin path to PATH in .bashrc
+      become: false
+      lineinfile:
+        path: "{{ user_home }}/.bashrc"
+        line: 'export PATH="{{ pipx_bin_path }}:${PATH}"'
+        insertafter: EOF
+
+    - name: Create user application and icon directories
+      become: false
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - "{{ user_home }}/.local/share/applications"
+        - "{{ user_home }}/.local/share/icons"
+
+    - name: Copy GUI desktop file
+      become: false
+      copy:
+        src: "{{ pipx_venv_gui_path }}/applications/org.precice.config_visualizer.desktop"
+        dest: "{{ user_home }}/.local/share/applications/org.precice.config_visualizer.desktop"
+        remote_src: yes
+        mode: '0644'
+
+    - name: Copy GUI icon file
+      become: false
+      copy:
+        src: "{{ pipx_venv_gui_path }}/icons/hicolor/scalable/apps/org.precice.config_visualizer.svg"
+        dest: "{{ user_home }}/.local/share/icons/org.precice.config_visualizer.svg"
+        remote_src: yes
+        mode: '0644'

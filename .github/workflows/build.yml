@@ -40,6 +40,10 @@ jobs:
     - name: Show Vagrant version
       run: vagrant --version
 
+    - name: Destroy previous boxes
+      run: |
+        vagrant destroy --force
+
     - name: Run vagrant up
       run: |
         VAGRANT_DISABLE_VBOXSYMLINKCREATE=1 vagrant up --provider=${{ matrix.provider }}

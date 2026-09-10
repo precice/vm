@@ -6,7 +6,7 @@ on:
     
 jobs:
   vagrant-up:
-    runs-on: macos-12
+    runs-on: [self-hosted, linux, x64, virtualization]
 
     strategy:
       fail-fast: true

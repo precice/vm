@@ -16,12 +16,12 @@ jobs:
     name: Build Vagrant Box for ${{ matrix.provider }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7.0.1
       with:
         lfs: true
 
     - name: Cache Vagrant boxes
-      uses: actions/cache@v5
+      uses: actions/cache@v6.1.0
       with:
         path: ~/.vagrant.d/boxes
         key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
@@ -55,7 +55,7 @@ jobs:
       run: shasum -a 256 preCICE.box
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@v7.0.1
       with:
           name: precice-vagrant-box-${{ matrix.provider }}
           path: preCICE.box

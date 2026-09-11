@@ -8,15 +8,13 @@ source ~/python-venvs/su2precice/bin/activate
 python -m pip install mpi4py setuptools # pyprecice is installed by the tutorials
 sudo apt-get -y install swig
 
-# Get SU2 7.5.1 from GitHub
-wget --quiet  https://github.com/su2code/SU2/archive/refs/tags/v7.5.1.tar.gz
-tar -xzf v7.5.1.tar.gz
-rm -fv v7.5.1.tar.gz
+# Get SU2 from GitHub
+git clone --depth=1 --branch=v7.5.1 --recurse-submodules https://github.com/su2code/SU2.git
 
 # Add SU2 and the SU2 adapter to PATH and apply.
 # We first export to a separate script, so that we can load it here (non-interactive shell).
 {
-    echo "export SU2_HOME=\"\${HOME}/SU2-7.5.1\""
+    echo "export SU2_HOME=\"\${HOME}/SU2\""
     echo "export SU2_RUN=\"\${SU2_HOME}/SU2_CFD\""
     echo "export PATH=\"\${SU2_RUN}/bin/:\${HOME}/su2-adapter/run/:\${PATH}\""
     echo "export PYTHONPATH=\"\${SU2_RUN}/bin/:\${PYTHONPATH}\""
@@ -42,12 +40,18 @@ fi
     
     # Add a previously implied header (compatibility with Ubuntu 24.04)
     sed -i '1s/^/#include <cstdint>\n/' SU2_CFD/src/output/filewriter/CParaviewXMLFileWriter.cpp
+    sed -i '1s/^/#include <cstdint>\n/' SU2_CFD/src/SU2_CFD.cpp
 
-    ./meson.py build -Denable-pywrapper=true --prefix="${SU2_RUN}" &&\
+    # Replace pipes with shlex in Ninja configure (compatibility with Ubuntu 26.04 and Python >= 3.13)
+    # See https://github.com/ninja-build/ninja/commit/9cf13cd1ecb7ae649394f4133d121a01e191560b
+    sed -i 's/pipes/shlex/g' externals/ninja/configure.py
+
+    # Disable unnecessary dependencies to save space and to workaround an issue that CGNS does not build.
+    ./meson.py build -Denable-pywrapper=true -Denable-cgns=false -Denable-tecio=false --prefix="${SU2_RUN}" &&\
     ./ninja -C build install
 )
 
 # Remove the libSU2Core.a library to save space (approx. 500MB)
-rm -fv ~/SU2-7.5.1/SU2_CFD/obj/libSU2Core.a
+rm -fv ~/SU2/SU2_CFD/obj/libSU2Core.a
 
 deactivate

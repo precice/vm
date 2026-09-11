@@ -51,6 +51,8 @@ fi
 (
     cd dune-elastodynamics
     git pull
+    # Apply patch https://github.com/maxfirmbach/dune-elastodynamics/pull/2
+    sed -i 's/VERSION 3.1/VERSION 3.13/g' CMakeLists.txt
 )
 
 # Get the plain DUNE-preCICE adapter

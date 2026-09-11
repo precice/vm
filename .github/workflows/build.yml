@@ -1,12 +1,11 @@
+# This workflow does not work anymore - see https://github.com/precice/vm/issues/92
 name: Build and package
 on:
-  pull_request:
-    types: [ready_for_review]
   workflow_dispatch:
-    
+permissions: {}
 jobs:
   vagrant-up:
-    runs-on: macos-12
+    runs-on: ubuntu-latest # previously, the retired macos-12 worked
 
     strategy:
       fail-fast: true
@@ -16,12 +15,13 @@ jobs:
     name: Build Vagrant Box for ${{ matrix.provider }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         lfs: true
+        persist-credentials: false
 
     - name: Cache Vagrant boxes
-      uses: actions/cache@v5
+      uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v6.1.0
       with:
         path: ~/.vagrant.d/boxes
         key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
@@ -51,7 +51,7 @@ jobs:
       run: shasum -a 256 preCICE.box
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
           name: precice-vagrant-box-${{ matrix.provider }}
           path: preCICE.box

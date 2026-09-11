@@ -6,7 +6,7 @@ on:
 permissions: {}
 jobs:
   vagrant-up:
-    runs-on: macos-15-intel # previously, the retired macos-12 worked
+    runs-on: ubuntu-latest # previously, the retired macos-12 worked
 
     strategy:
       fail-fast: true
@@ -28,6 +28,17 @@ jobs:
         key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
         restore-keys: |
           ${{ runner.os }}-vagrant-
+
+    - name: Install Vagrant
+      run: |
+        wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+        sudo apt update && sudo apt install --yes vagrant
+
+    - name: Install Virtualbox
+      if: matrix.provider == 'virtualbox'
+      run: |
+        sudo apt-get --yes install virtualbox
 
     - name: Install libvirt
       if: matrix.provider == 'libvirt'

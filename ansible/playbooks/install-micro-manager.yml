@@ -1,0 +1,17 @@
+---
+- name: Install micro-manager-preCICE via pipx
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Ensure pipx is installed
+      apt:
+        name: pipx
+        state: present
+        update_cache: yes
+
+    - name: Install micro-manager-precice using pipx
+      become: false
+      shell: pipx install micro-manager-precice
+      args:
+        executable: /bin/bash

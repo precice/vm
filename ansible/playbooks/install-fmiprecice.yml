@@ -1,0 +1,17 @@
+---
+- name: Install FMI-preCICE runner via pipx
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Ensure pipx is installed
+      apt:
+        name: pipx
+        state: present
+        update_cache: yes
+
+    - name: Install fmiprecice using pipx
+      become: false
+      shell: pipx install fmiprecice
+      args:
+        executable: /bin/bash

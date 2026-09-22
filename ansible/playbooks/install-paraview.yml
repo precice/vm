@@ -1,0 +1,12 @@
+---
+- name: Install ParaView without recommends
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install ParaView without recommended packages
+      apt:
+        name: paraview
+        state: present
+        install_recommends: no
+

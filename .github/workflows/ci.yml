@@ -1,0 +1,25 @@
+name: Ansible CI with Docker
+
+on: [push, pull_request]
+
+jobs:
+  test-ansible:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Lint Ansible Playbooks 🧹
+        uses: docker://ansible/ansible-lint:latest
+        with:
+          args: 'ansible/playbooks/'
+
+      - name: Check Ansible Playbook Syntax ✅
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace ansible/ansible:latest bash -c "
+            for playbook in ansible/playbooks/*.yml; do
+              echo 'Checking syntax of' \$playbook
+              ansible-playbook -i ansible/inventory.ini --syntax-check \$playbook
+            done
+          "

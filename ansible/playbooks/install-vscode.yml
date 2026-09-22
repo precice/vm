@@ -1,0 +1,22 @@
+- name: Install Visual Studio Code and C++ extensions
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install VS Code via snap
+      snap:
+        name: code
+        classic: true
+        state: present
+
+    - name: Install C++ extension in VS Code
+      become: false
+      shell: code --install-extension ms-vscode.cpptools
+      args:
+        executable: /bin/bash
+
+    - name: Install GNU Global extension in VS Code
+      become: false
+      shell: code --install-extension austin.code-gnu-global
+      args:
+        executable: /bin/bash

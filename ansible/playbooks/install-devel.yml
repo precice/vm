@@ -1,0 +1,19 @@
+- name: Set up development environment
+  hosts: all
+  become: true
+  tasks:
+    - name: Install development tools and editors
+      apt:
+        name:
+          - build-essential
+          - git
+          - cmake
+          - cmake-curses-gui
+          - cargo
+          - nano
+          - vim
+          - gedit
+          - meld
+          - ipython3
+        state: present
+        update_cache: yes

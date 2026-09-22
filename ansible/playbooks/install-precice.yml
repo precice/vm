@@ -1,0 +1,191 @@
+---
+- name: Install preCICE and related tutorials
+  hosts: all
+  become: true
+  vars:
+    user_home: "/home/vagrant"
+    precice_repo: "https://github.com/precice/precice.git"
+    tutorials_repo: "https://github.com/precice/tutorials.git"
+    fortran_module_repo: "https://github.com/precice/fortran-module.git"
+    python_bindings_repo: "https://github.com/precice/python-bindings.git"
+    precice_path: "{{ user_home }}/precice"
+    venv_path: "{{ user_home }}/python-venvs/pyprecice"
+
+  tasks:
+    - name: Install preCICE build dependencies
+      apt:
+        name:
+          - cmake
+          - libeigen3-dev
+          - libxml2-dev
+          - libboost-all-dev
+          - petsc-dev
+          - python3-dev
+          - python3-numpy
+        state: present
+        update_cache: yes
+
+    - name: Clone preCICE repo if not present
+      git:
+        repo: "{{ precice_repo }}"
+        dest: "{{ precice_path }}"
+        version: main
+        depth: 1
+        update: yes
+      become: false
+
+    - name: Build and package preCICE
+      become: false
+      shell: |
+        mkdir -p build && cd build
+        cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON \
+              -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+              -DPRECICE_RELEASE_WITH_DEBUG_LOG=ON -DBUILD_TESTING=OFF -Wno-dev ..
+        make -j $(nproc)
+        rm -fv ./*.deb && make package
+        sudo apt-get install -y ./libprecice*_*.deb
+        rm -rfv ./*.deb ./*.tar.gz _CPack_Packages
+      args:
+        chdir: "{{ precice_path }}"
+        executable: /bin/bash
+
+    - name: Copy examples from /usr/share
+      copy:
+        remote_src: true
+        src: /usr/share/precice/examples/
+        dest: "{{ precice_path }}-examples"
+        owner: vagrant
+        group: vagrant
+        mode: preserve
+
+    - name: Build solverdummies (C, C++, Fortran)
+      shell: |
+        cd solverdummies
+        for d in c cpp fortran; do
+          cd $d && cmake . && make && cd ..
+        done
+      args:
+        chdir: "{{ precice_path }}-examples"
+        executable: /bin/bash
+      become: false
+
+    - name: Clone and build fortran-module
+      git:
+        repo: "{{ fortran_module_repo }}"
+        dest: "{{ precice_path }}-examples/solverdummies/fortran-module"
+        depth: 1
+        update: yes
+      become: false
+
+    - name: Build fortran-module examples
+      shell: |
+        make
+        cd examples/solverdummy && make
+      args:
+        chdir: "{{ precice_path }}-examples/solverdummies/fortran-module"
+        executable: /bin/bash
+      become: false
+
+    - name: Clone tutorials if not present
+      git:
+        repo: "{{ tutorials_repo }}"
+        dest: "{{ user_home }}/tutorials"
+        depth: 1
+        update: yes
+      become: false
+
+    - name: Ensure Desktop directory exists
+      file:
+        path: "{{ user_home }}/Desktop"
+        state: directory
+        mode: '0755'
+      become: false
+
+    - name: Remove existing Desktop/tutorials if any
+      file:
+        path: "{{ user_home }}/Desktop/tutorials"
+        state: absent
+      become: false
+
+    - name: Link tutorials to Desktop
+      file:
+        src: "{{ user_home }}/tutorials"
+        dest: "{{ user_home }}/Desktop/tutorials"
+        state: link
+      become: false
+
+    - name: Build quickstart tutorial
+      shell: |
+        cmake . && make
+      args:
+        chdir: "{{ user_home }}/tutorials/quickstart/solid-cpp"
+        executable: /bin/bash
+      become: false
+
+    - name: Vendor Rust dependencies for elastic-tube-1d
+      shell: |
+        mkdir -p .cargo && cargo vendor > .cargo/config.toml
+      args:
+        chdir: "{{ item }}"
+        executable: /bin/bash
+      loop:
+        - "{{ user_home }}/tutorials/elastic-tube-1d/solid-rust"
+        - "{{ user_home }}/tutorials/elastic-tube-1d/fluid-rust"
+      become: false
+
+    - name: Run mesh download script for heat exchanger
+      shell: ./download-meshes.sh
+      args:
+        chdir: "{{ user_home }}/tutorials/heat-exchanger"
+        executable: /bin/bash
+      become: false
+
+    - name: Install gnuplot
+      apt:
+        name: gnuplot
+        state: present
+
+    - name: Install pip and venv
+      apt:
+        name:
+          - python3-pip
+          - python3-venv
+        state: present
+
+    - name: Create Python venv for pyprecice
+      become: false
+      command: python3 -m venv {{ venv_path }}
+      args:
+        creates: "{{ venv_path }}/bin/activate"
+
+    - name: Install pyprecice in venv
+      become: false
+      shell: |
+        source {{ venv_path }}/bin/activate
+        pip install --upgrade pip
+        pip install pyprecice
+      args:
+        executable: /bin/bash
+
+    - name: Clone Python bindings repo and copy solverdummy
+      git:
+        repo: "{{ python_bindings_repo }}"
+        dest: "{{ user_home }}/python-bindings"
+        depth: 1
+        update: yes
+      become: false
+
+    - name: Copy python solverdummy example
+      copy:
+        src: "{{ user_home }}/python-bindings/examples/solverdummy"
+        dest: "{{ precice_path }}-examples/solverdummies/python"
+        remote_src: yes
+        owner: vagrant
+        group: vagrant
+      become: false
+
+    - name: Remove python-bindings folder
+      file:
+        path: "{{ user_home }}/python-bindings"
+        state: absent
+      become: false

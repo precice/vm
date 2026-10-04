@@ -8,14 +8,16 @@ ln -sf /vagrant/ ~/Desktop/shared
 cp /usr/share/applications/terminator.desktop ~/Desktop/
 chmod +x ~/Desktop/terminator.desktop
 
-# Disable the screensaver and automatic screen lock
 {
+    # Disable the screensaver and automatic screen lock
     echo "xset s off -dpms"
     echo "gsettings set org.gnome.desktop.screensaver lock-enabled false"
-} >> ~/.bashrc
-
-# Add aliases and enable the python venv by default
-{
+    
+    # Add aliases and enable the python venv by default
     echo "source ${HOME}/.alias"
     echo "source ${HOME}/python-venvs/pyprecice/bin/activate"
+
+    # Add OpenMPI settings
+    echo "export OMPI_MCA_btl='self,sm'"
+    echo "export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe"
 } >> ~/.bashrc

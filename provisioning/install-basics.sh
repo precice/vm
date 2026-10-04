@@ -28,9 +28,13 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get -y \
 echo 'APT::Acquire::Retries "4";' | sudo tee /etc/apt/apt.conf.d/80-retries
 
 # Install the Xfce desktop environment and basic applications
-sudo apt-get install -y xubuntu-core
+sudo apt-get install -y xubuntu-core lightdm
 sudo apt-get install -y thunar thunar-archive-plugin xfce4-terminal terminator bash-completion tree atril firefox firefox-locale-en baobab catfish
 sudo apt-get install -y python3-dev pipx python-is-python3 python3-venv python3-pip python3-pybind11
+
+# Remove GNOME display manager and desktop packages
+sudo apt-get purge -y gdm3 gnome-shell ubuntu-desktop
+sudo apt-get autoremove -y --purge
 
 # Setup auto-login for the graphical session
 # Disabled due to https://github.com/precice/vm/issues/40

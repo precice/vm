@@ -19,6 +19,3 @@ chmod +x ~/Desktop/terminator.desktop
     echo "source ${HOME}/.alias"
     echo "source ${HOME}/python-venvs/pyprecice/bin/activate"
 } >> ~/.bashrc
-
-# Workaround for the network timeout at boot
-sudo systemctl mask systemd-networkd-wait-online.service

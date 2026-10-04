@@ -54,3 +54,6 @@ chmod +x ~/Desktop/xfce-keyboard-settings.desktop
 
 # Set a hostname
 echo "precicevm" | sudo tee /etc/hostname
+
+# Workaround for the network timeout at boot
+sudo systemctl mask systemd-networkd-wait-online.service

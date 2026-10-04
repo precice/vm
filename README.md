@@ -40,7 +40,7 @@ A few things you may need:
 
 ## What is included?
 
-This box is based on the [bento/ubuntu-24.04](https://github.com/chef/bento) base box and installs:
+This box is based on the [bento/ubuntu-26.04](https://github.com/chef/bento) base box and installs:
 
 - Xubuntu-core (Xfce desktop environment) and related tools
 - VirtualBox guest additions
@@ -56,7 +56,7 @@ This box is based on the [bento/ubuntu-24.04](https://github.com/chef/bento) bas
 - preCICE FMI Runner (PyPI, latest)
 - preCICE Micro Manager (PyPI, latest)
 - ASTE (Git, develop branch)
-- OpenFOAM v2512 and the OpenFOAM-preCICE adapter (Git, develop branch)
+- OpenFOAM v2606 and the OpenFOAM-preCICE adapter (Git, develop branch)
 - deal.II 9.5 from the official PPA and the deal.II-preCICE adapter (Git, develop branch)
 - CalculiX 2.20 from source and the CalculiX-preCICE adapter (Git, develop branch)
 - FEniCS latest from the FEniCS PPA. The FEniCS-preCICE adapter is installed automatically in the Python virtual environment of each tutorial.

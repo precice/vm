@@ -1,13 +1,31 @@
 #!/usr/bin/env bash
 set -ex
 
-# Some repos are a bit fragile and need multiple download tries
-echo 'APT::Acquire::Retries "4";' | sudo tee /etc/apt/apt.conf.d/80-retries
+# Make APT calls non-interactive
+echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
+
+# Pre-seeding of interactive dialogs (keyboard configuration, gdm3)
+cat <<EOF | sudo tee /tmp/preseed.cfg
+keyboard-configuration	question	select	us
+keyboard-configuration	modelcode	string	evdev-abnt2
+keyboard-configuration	layoutcode	string	us
+keyboard-configuration	store_defaults_in_legacy_files	boolean	false
+keyboard-configuration	variantcode	string	
+keyboard-configuration	toggle	string	No toggling
+EOF
+sudo debconf-set-selections /tmp/preseed.cfg
 
 # We (may) need the multiverse repository for the VBox Guest Additions
 sudo apt-add-repository multiverse
 sudo apt-get update
-sudo apt-get upgrade -qy
+
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y \
+  -o Dpkg::Options::="--force-confold" \
+  -o Dpkg::Options::="--force-confdef" \
+  upgrade
+
+# Some repos are a bit fragile and need multiple download tries
+echo 'APT::Acquire::Retries "4";' | sudo tee /etc/apt/apt.conf.d/80-retries
 
 # Install the Xfce desktop environment and basic applications
 sudo apt-get install -y xubuntu-core
@@ -25,7 +43,7 @@ sudo apt-get install -y virtualbox-guest-utils
 mkdir -p ~/Desktop
 
 # Use US-English keyboard layout
-L='us' && sudo sed -i 's/XKBLAYOUT=\"\w*"/XKBLAYOUT=\"'$L'\"/g' /etc/default/keyboard
+# L='us' && sudo sed -i 's/XKBLAYOUT=\"\w*"/XKBLAYOUT=\"'$L'\"/g' /etc/default/keyboard
 # Add a shortcut to the keyboard options on the Desktop
 cp /usr/share/applications/xfce-keyboard-settings.desktop ~/Desktop/
 chmod +x ~/Desktop/xfce-keyboard-settings.desktop

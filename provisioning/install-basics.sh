@@ -57,3 +57,6 @@ echo "precicevm" | sudo tee /etc/hostname
 
 # Workaround for the network timeout at boot
 sudo systemctl mask systemd-networkd-wait-online.service
+
+# Workaround for not being able to shut down the VM from inside itself
+sudo DEBIAN_FRONTEND=noninteractive systemctl mask systemd-timesyncd

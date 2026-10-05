@@ -45,6 +45,8 @@ This box is based on the [bento/ubuntu-26.04](https://github.com/chef/bento) bas
 - Xubuntu-core (Xfce desktop environment) and related tools
 - VirtualBox guest additions
 - Terminator (a nice split-window terminal emulator, find it in `Applications > System`)
+- GNU C++, C, Fortran compilers
+- Python, Julia, Rust
 - Git, CMake, ccmake
 - Editors: nano, vim, gedit
 - Diff viewer: meld
@@ -52,7 +54,6 @@ This box is based on the [bento/ubuntu-26.04](https://github.com/chef/bento) bas
 - preCICE config visualizer with its GUI (PyPI, latest)
 - preCICE Python bindings (PyPI, latest), under `~/python-venvs/pyprecice`.
 - preCICE Rust bindings (Cargo, latest)
-- preCICE Julia bindings (Pkg, latest)
 - preCICE FMI Runner (PyPI, latest)
 - preCICE Micro Manager (PyPI, latest)
 - ASTE (Git, develop branch)

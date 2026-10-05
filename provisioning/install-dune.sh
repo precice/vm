@@ -84,8 +84,8 @@ CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_DISABLE_FIND_PACKAGE_Kokkos=TRUE" ./dune-commo
 # Set the DUNE_CONTROL_PATH (DUNE recursively finds modules in this directory)
 echo "export DUNE_CONTROL_PATH=\"\${HOME}/dune-dumux\"" >> ~/.bashrc
 
-# Copy the built example code to the tutorials
-cp ~/dune-dumux/dune-adapter/dune-precice-howto/build-cmake/examples/dune-perpendicular-flap ~/tutorials/perpendicular-flap/solid-dune
+# Make the built example code discoverable
+echo "export PATH=\"\${HOME}/dune-dumux/dune-adapter/dune-precice-howto/build-cmake/examples:\${PATH}\"" >> ~/.bashrc
 
 # We are done with DUNE, let's do back home
 cd ~

@@ -6,7 +6,9 @@ set -ex
 source ~/python-venvs/pyprecice/bin/activate
 python -m pip install pyfoam
 deactivate
-pipx install ccx2paraview
+
+# ccx2paraview is incompatible with newer vtk versions: https://github.com/calculix/ccx2paraview/issues/58
+# pipx install ccx2paraview
 
 # FreeCAD AppImage from https://www.freecad.org/downloads.php (~780MB)
 (

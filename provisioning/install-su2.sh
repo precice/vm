@@ -38,7 +38,7 @@ fi
 (
     cd "${SU2_HOME}"
     
-    # Add a previously implied header (compatibility with Ubuntu 24.04)
+    # Add a previously implied header (compatibility with Ubuntu 24.04 and later)
     sed -i '1s/^/#include <cstdint>\n/' SU2_CFD/src/output/filewriter/CParaviewXMLFileWriter.cpp
     sed -i '1s/^/#include <cstdint>\n/' SU2_CFD/src/SU2_CFD.cpp
 

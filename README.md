@@ -4,7 +4,7 @@
 
 ## What does this do?
 
-Vagrant pulls an Ubuntu 24.04 "base box" and asks e.g. VirtualBox to start a virtual machine.
+Vagrant pulls an Ubuntu 26.04 "base box" and asks, e.g., VirtualBox to start a virtual machine.
 It then installs basic tools (such as a desktop environment), a preCICE release,
 several solvers and adapters, as well as example and tutorial files.
 

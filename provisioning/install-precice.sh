@@ -13,6 +13,10 @@ fi
 (
     cd precice
     git pull
+    
+    # Patch for Ubuntu 26.04, see https://github.com/precice/precice/commit/6a0be7aa64087f21740c566921e83e97e03e1067
+    sed -i 's/libxml2/libxml2-dev/g' cmake/CPackConfig.cmake
+
     mkdir -p build && cd build/
     cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DPRECICE_RELEASE_WITH_DEBUG_LOG=ON -DBUILD_TESTING=OFF -Wno-dev ..
     make -j "$(nproc)"
@@ -42,9 +46,6 @@ if [ ! -d "tutorials/" ]; then
 fi
 (
     cd tutorials/quickstart/solid-cpp/ && cmake . && make
-)
-(
-    cd tutorials/heat-exchanger && ./download-meshes.sh
 )
 sudo apt-get -y install gnuplot # needed for watchpoint scripts of tutorials
 

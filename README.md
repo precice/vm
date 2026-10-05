@@ -4,7 +4,7 @@
 
 ## What does this do?
 
-Vagrant pulls an Ubuntu 24.04 "base box" and asks e.g. VirtualBox to start a virtual machine.
+Vagrant pulls an Ubuntu 26.04 "base box" and asks, e.g., VirtualBox to start a virtual machine.
 It then installs basic tools (such as a desktop environment), a preCICE release,
 several solvers and adapters, as well as example and tutorial files.
 
@@ -15,7 +15,7 @@ Ready-to-use boxes are available on [Vagrant Cloud](https://app.vagrantup.com/pr
 **Note:** If you only want to directly get a pre-built box, look at the [documentation](https://www.precice.org/installation-vm.html).
 
 1. Get a Virtual Machine provider, such as [VirtualBox](https://www.virtualbox.org/)
-2. Get [Vagrant](https://www.vagrantup.com/)
+2. Get [Vagrant](https://www.vagrantup.com/) and the [vagrant-reload plugin](https://github.com/aidanns/vagrant-reload)
 3. Go to the root folder of this repository and start with `vagrant up`.
 4. Be patient. Vagrant will now setup your virtual machine. You don't have to do anything and your terminal will be very busy.
 5. After the provisioning finishes, restart the machine with `vagrant reload` to get a full GUI
@@ -40,21 +40,24 @@ A few things you may need:
 
 ## What is included?
 
-This box is based on the [bento/ubuntu-24.04](https://github.com/chef/bento) base box and installs:
+This box is based on the [bento/ubuntu-26.04](https://github.com/chef/bento) base box and installs:
 
 - Xubuntu-core (Xfce desktop environment) and related tools
 - VirtualBox guest additions
 - Terminator (a nice split-window terminal emulator, find it in `Applications > System`)
+- GNU C++, C, Fortran compilers
+- Python, Julia, Rust
 - Git, CMake, ccmake
 - Editors: nano, vim, gedit
 - Diff viewer: meld
 - preCICE latest from the master branch (built in release-with-debug-info mode)
 - preCICE config visualizer with its GUI (PyPI, latest)
 - preCICE Python bindings (PyPI, latest), under `~/python-venvs/pyprecice`.
-- preCICE Julia bindings (Pkg, latest)
+- preCICE Rust bindings (Cargo, latest)
 - preCICE FMI Runner (PyPI, latest)
 - preCICE Micro Manager (PyPI, latest)
-- OpenFOAM v2512 and the OpenFOAM-preCICE adapter (Git, develop branch)
+- ASTE (Git, develop branch)
+- OpenFOAM v2606 and the OpenFOAM-preCICE adapter (Git, develop branch)
 - deal.II 9.5 from the official PPA and the deal.II-preCICE adapter (Git, develop branch)
 - CalculiX 2.20 from source and the CalculiX-preCICE adapter (Git, develop branch)
 - FEniCS latest from the FEniCS PPA. The FEniCS-preCICE adapter is installed automatically in the Python virtual environment of each tutorial.
@@ -75,8 +78,6 @@ At the end, it cleans up all object files and the APT cache (see `cleanup.sh`).
 
 ## What should be there but is currently not included?
 
-- ASTE (Git, develop branch) -> Cannot build using the VTK packages bundled in Ubuntu 24.04. Will enable again in the next upgrade.
-- preCICE Rust bindings (Cargo, latest) -> Cargo too old in Ubuntu 24.04.
 - code_aster 14.6 and the code_aster-preCICE adapter -> Adapter currently unmaintained.
 
 ## Troubleshooting
